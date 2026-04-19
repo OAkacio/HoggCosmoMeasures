@@ -36,19 +36,19 @@ def E(z, Omega_M, Omega_EE):
     """Calcula a função de expansão (E) a partir do redshift (z) e dos parâmetros de densidade de matéria e energia escura."""
     return np.sqrt(
         Omega_M * (1 + z) ** 3
-        + Omega_EE * (1 + z) ** 3 * (1 + w)
+        + Omega_EE * (1 + z) ** (3 * (1 + w))
         + Omega_K(Omega_M, Omega_EE) * (1 + z) ** 2
     )
 
 
 def Sk(Omega_M, Omega_EE, r):
     """Calcula a função de distância comóvel transversal (Sk) a partir do parâmetro de curvatura (k) e da distância comóvel radial (r)."""
-    if k(Omega_M, Omega_EE) > 0:
-        return np.sin(np.sqrt(k(Omega_M, Omega_EE)) * r) / np.sqrt(k(Omega_M, Omega_EE))
-    elif k(Omega_M, Omega_EE) < 0:
-        return np.sinh(np.sqrt(-k(Omega_M, Omega_EE)) * r) / np.sqrt(
-            -k(Omega_M, Omega_EE)
-        )
+    Ok=Omega_K(Omega_M,Omega_EE)
+    DH=c/H0
+    if Ok>0:
+        return (DH/np.sqrt(Ok))*np.sinh(np.sqrt(Ok)*r/DH)
+    elif Ok<0:
+        return (DH/np.sqrt(-Ok))*np.sin(np.sqrt(-Ok)*r/DH)
     else:
         return r
 
