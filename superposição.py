@@ -22,19 +22,24 @@ def load_data(caminho_arquivo):
 
 try:  # Inicia a rotina principal para 3 universos diferentes
     main(0.315, 0.685, -1, 10, 10e-4)
-    main(0.2, 0.4, -1, 10, 10e-4)
-    main(0.8, 0.6, -1, 10, 10e-4)
+    main(1, 0, -1, 10, 10e-4)
+    main(0, 1, -1, 10, 10e-4)
 except Exception as e:
     print(f"Um erro foi encontrado ao tentar executar a rotina principal. Erro: {e}")
 
 try:  # Inicia processo de plotagem dos gráficos de Distância de Luminosidade
-    x1 = load_data("data/DLdadosUniversoAberto.txt")[0]
-    x2 = load_data("data/DLdadosUniversoFechado.txt")[0]
-    x3 = load_data("data/DLdadosUniversoPlano.txt")[0]
+    dadosM="DLdados OM 100 OEE 0.txt"
+    dadosEE="DLdados OM 0 OEE 100.txt"
+    dadosMEE="DLdados OM 31.5 OEE 68.5.txt"
 
-    y1 = load_data("data/DLdadosUniversoAberto.txt")[1]
-    y2 = load_data("data/DLdadosUniversoFechado.txt")[1]
-    y3 = load_data("data/DLdadosUniversoPlano.txt")[1]
+
+    x1 = load_data(f"data/{dadosM}")[0]
+    x2 = load_data(f"data/{dadosEE}")[0]
+    x3 = load_data(f"data/{dadosMEE}")[0]
+
+    y1 = load_data(f"data/{dadosM}")[1]
+    y2 = load_data(f"data/{dadosEE}")[1]
+    y3 = load_data(f"data/{dadosMEE}")[1]
 
     ppplot(
         True,
@@ -44,9 +49,9 @@ try:  # Inicia processo de plotagem dos gráficos de Distância de Luminosidade
         y2,
         x3,
         y3,
-        "Universo Aberto",
-        "Universo Fechado",
-        "Universo Plano",
+        "Universo OM",
+        "Universo OEE",
+        "Universo OMEE",
         "Comparação de Distâncias de Luminosidade",
         "Redshift (adm.)",
         "Distância de Luminosidade (Mpc)",
@@ -57,13 +62,18 @@ except Exception as e:
     )
 
 try:
-    x1 = load_data("data/MUdadosUniversoAberto.txt")[0]
-    x2 = load_data("data/MUdadosUniversoFechado.txt")[0]
-    x3 = load_data("data/MUdadosUniversoPlano.txt")[0]
 
-    y1 = load_data("data/MUdadosUniversoAberto.txt")[1]
-    y2 = load_data("data/MUdadosUniversoFechado.txt")[1]
-    y3 = load_data("data/MUdadosUniversoPlano.txt")[1]
+    dadosM="MUdados OM 100 OEE 0.txt"
+    dadosEE="MUdados OM 0 OEE 100.txt"
+    dadosMEE="MUdados OM 31.5 OEE 68.5.txt"
+    
+    x1 = load_data(f"data/{dadosM}")[0]
+    x2 = load_data(f"data/{dadosEE}")[0]
+    x3 = load_data(f"data/{dadosMEE}")[0]
+
+    y1 = load_data(f"data/{dadosM}")[1]
+    y2 = load_data(f"data/{dadosEE}")[1]
+    y3 = load_data(f"data/{dadosMEE}")[1]
 
     ppplot(
         True,

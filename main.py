@@ -73,7 +73,7 @@ def main(Omega_M, Omega_EE, w, z, z_step):
         DIFvectorX = DLvectorX
 
         save_data(
-            f"DLdados{UniType(Omega_K(Omega_M,Omega_EE)).replace(" ", "")}",
+            f"DLdados OM {Omega_M*100} OEE {Omega_EE*100}",
             10,
             DLvectorX,
             DLvectorY,
@@ -87,7 +87,7 @@ def main(Omega_M, Omega_EE, w, z, z_step):
         )
 
         save_data(
-            f"MUdados{UniType(Omega_K(Omega_M,Omega_EE)).replace(" ", "")}",
+            f"MUdados OM {Omega_M*100} OEE {Omega_EE*100}",
             10,
             MUvectorX,
             MUvectorY,
@@ -101,7 +101,7 @@ def main(Omega_M, Omega_EE, w, z, z_step):
         )
 
         save_data(
-            f"DLAPdados{UniType(Omega_K(Omega_M,Omega_EE)).replace(" ", "")}",
+            f"DLAPdados OM {Omega_M*100} OEE {Omega_EE*100}",
             10,
             DLAPvectorX,
             DLAPvectorY,
@@ -115,7 +115,7 @@ def main(Omega_M, Omega_EE, w, z, z_step):
         )
 
         save_data(
-            f"DIFdados{UniType(Omega_K(Omega_M,Omega_EE)).replace(" ", "")}",
+            f"DIFdados OM {Omega_M*100} OEE {Omega_EE*100}",
             10,
             DIFvectorX,
             DIFvectorY,
@@ -142,7 +142,7 @@ def main(Omega_M, Omega_EE, w, z, z_step):
             True,
             DLvectorX,
             DLvectorY,
-            f"Distância de Luminosidade Exata - {UniType(Omega_K(Omega_M,Omega_EE))}",
+            f"Distância de Luminosidade Exata OM {Omega_M*100} OEE {Omega_EE*100}",
             "Redshift (adm.)",
             "Distância de Luminosidade (Mpc)",
         )
@@ -150,7 +150,7 @@ def main(Omega_M, Omega_EE, w, z, z_step):
             True,
             DLAPvectorX,
             DLAPvectorY,
-            f"Distância de Luminosidade Aproximada - {UniType(Omega_K(Omega_M,Omega_EE))}",
+            f"Distância de Luminosidade Aproximada OM {Omega_M*100} OEE {Omega_EE*100}",
             "Redshift (adm.)",
             "Distância de Luminosidade (Mpc)",
         )
@@ -158,7 +158,7 @@ def main(Omega_M, Omega_EE, w, z, z_step):
             True,
             DIFvectorX,
             DIFvectorY,
-            f"Anlálise de Erro Aproximação vs. Exato - {UniType(Omega_K(Omega_M,Omega_EE))}",
+            f"Anlálise de Erro Aproximação vs. Exato OM {Omega_M*100} OEE {Omega_EE*100}",
             "Redshift (adm.)",
             "dL Exato - dL Aproximado  (Mpc)",
         )
@@ -166,7 +166,7 @@ def main(Omega_M, Omega_EE, w, z, z_step):
             True,
             MUvectorX,
             MUvectorY,
-            f"Módulo de Distância Exato - {UniType(Omega_K(Omega_M,Omega_EE))}",
+            f"Módulo de Distância Exato OM {Omega_M*100} OEE {Omega_EE*100}",
             "Redshift (adm.)",
             "Módulo de Distância (mag)",
         )
@@ -176,4 +176,4 @@ def main(Omega_M, Omega_EE, w, z, z_step):
 
 
 if __name__ == "__main__":
-    main()
+    main(Omega_M, Omega_EE, w, z, z_step)
