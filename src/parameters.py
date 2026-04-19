@@ -16,4 +16,4 @@ z = 10  # Redshift máximo [adm.]
 
 # -------------------------------------------------- Parâmetros de Output --------------------------------------------------
 
-z_step = 10e-4
+z_step = 10e-4  # Distância entre um ponto e outro nos outputs gerados

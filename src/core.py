@@ -69,6 +69,7 @@ def dC(resint):
 
 
 def UniType(Omega_k):
+    """Determina o tipo de universo estudado baseado no valor do Parâmetro de Densidade de Curvatura(Omega_k)"""
     if Omega_k > 0:
         return "Universo Aberto"
     elif Omega_k < 0:
@@ -78,6 +79,7 @@ def UniType(Omega_k):
 
 
 def k(Omega_M, Omega_EE):
+    """Determina o parâmetro de curvatura com base no valor do Parâmetro de Densidade de Curvatura (Omega_k)"""
     Ok = Omega_K(Omega_M, Omega_EE)
     if Ok > 0:
         return -1
