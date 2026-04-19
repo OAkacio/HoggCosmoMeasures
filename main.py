@@ -48,6 +48,8 @@ def main():
         DLvectorY = []
         MUvectorX = []
         MUvectorY = []
+        DLAPvectorX = []
+        DLAPvectorY = []
 
         for i in np.arange(0, float(z), float(z_step)):
             DLvectorX.append(i)
@@ -57,9 +59,15 @@ def main():
             MUvectorX.append(i)
             MUvectorY.append(mu(Omega_M, Omega_EE, resint, i))
 
+        for i in np.arange(0, float(z), float(z_step)):
+            DLAPvectorX.append(i)
+            DLAPvectorY.append(approx_dL(Omega_M,Omega_EE,i))
+
         save_data("DLdados",10,DLvectorX,DLvectorY,"Distribuicao de Distancia de Luminosidade", 0,10,"z","adm.","dL","Mpc")
 
         save_data("MUdados",10,MUvectorX,MUvectorY,"Distribuicao de Modulo de Distancia", 0,10,"z","adm.","mu","mag")
+
+        save_data("DLAPdados",10,DLAPvectorX,DLAPvectorY,"Distribuicao de Distancia de Luminosidade Aproximada", 0,10,"z","adm.","dL","Mpc")
 
         print("Exportação de dados concluida com sucesso!")
     except:
@@ -70,6 +78,7 @@ def main():
     print("-" * 100)
 
     plot(DLvectorX, DLvectorY)
+    plot(DLAPvectorX, DLAPvectorY)
     plot(MUvectorX, MUvectorY)
 
 
