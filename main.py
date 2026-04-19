@@ -11,7 +11,7 @@ from src.saves import *
 # -------------------------------------------------- Início da Rotina --------------------------------------------------
 
 
-def main(Omega_M,Omega_EE,w,z,z_step):
+def main(Omega_M, Omega_EE, w, z, z_step):
 
     print("-" * 100)
     print("\n Inicializando rotina...  \n")
@@ -138,10 +138,38 @@ def main(Omega_M,Omega_EE,w,z,z_step):
     print("-" * 100)
 
     try:  # Rotina para plotagem dos gráficos
-        plot(True,DLvectorX, DLvectorY, "Distância de Luminosidade Exata","Redshift (adm.)", "Distância de Luminosidade (Mpc)")
-        plot(True,DLAPvectorX, DLAPvectorY, "Distância de Luminosidade Aproximada","Redshift (adm.)", "Distância de Luminosidade (Mpc)")
-        plot(True,DIFvectorX, DIFvectorY, "Anlálise de Erro Aproximação vs. Exato","Redshift (adm.)", "dL Exato - dL Aproximado  (Mpc)")
-        plot(True,MUvectorX, MUvectorY, "Módulo de Distância Exato","Redshift (adm.)", "Módulo de Distância (mag)")
+        plot(
+            True,
+            DLvectorX,
+            DLvectorY,
+            "Distância de Luminosidade Exata",
+            "Redshift (adm.)",
+            "Distância de Luminosidade (Mpc)",
+        )
+        plot(
+            True,
+            DLAPvectorX,
+            DLAPvectorY,
+            "Distância de Luminosidade Aproximada",
+            "Redshift (adm.)",
+            "Distância de Luminosidade (Mpc)",
+        )
+        plot(
+            True,
+            DIFvectorX,
+            DIFvectorY,
+            "Anlálise de Erro Aproximação vs. Exato",
+            "Redshift (adm.)",
+            "dL Exato - dL Aproximado  (Mpc)",
+        )
+        plot(
+            True,
+            MUvectorX,
+            MUvectorY,
+            "Módulo de Distância Exato",
+            "Redshift (adm.)",
+            "Módulo de Distância (mag)",
+        )
 
     except Exception as e:
         print(f"Falha no processo de plotagem dos gráficos! Erro: {e}")
