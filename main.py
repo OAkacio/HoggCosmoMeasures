@@ -44,22 +44,22 @@ def main():
 
     try:
 
-        DLvectorX = []
-        DLvectorY = []
-        MUvectorX = []
-        MUvectorY = []
-        DLAPvectorX = []
-        DLAPvectorY = []
+        DLvectorX=[]
+        DLvectorY=[]
+        MUvectorX=[]
+        MUvectorY=[]
+        DLAPvectorX=[]
+        DLAPvectorY=[]
 
-        for i in np.arange(0, float(z), float(z_step)):
+        for i in np.arange(float(z_step),float(z)+float(z_step),float(z_step)):
+            resint=quad(integral,0,i,args=(Omega_M,Omega_EE))[0]
+            
             DLvectorX.append(i)
-            DLvectorY.append(dL(Omega_M, Omega_EE, resint, i))
-
-        for i in np.arange(0, float(z), float(z_step)):
+            DLvectorY.append(dL(Omega_M,Omega_EE,resint,i))
+            
             MUvectorX.append(i)
-            MUvectorY.append(mu(Omega_M, Omega_EE, resint, i))
-
-        for i in np.arange(0, float(z), float(z_step)):
+            MUvectorY.append(mu(Omega_M,Omega_EE,resint,i))
+            
             DLAPvectorX.append(i)
             DLAPvectorY.append(approx_dL(Omega_M,Omega_EE,i))
 
