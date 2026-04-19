@@ -2,6 +2,7 @@
 
 import matplotlib.pyplot as plt
 import random
+from pathlib import Path as path
 
 # -------------------------------------------------- Funções de Plotagem de Gráficos --------------------------------------------------
 
@@ -36,8 +37,10 @@ def plot(
     if save == True:
         if titulo == "":
             titulo = f"graph{random.randint(0,100000)}"
+        folderData = path("figures")
+        folderData.mkdir(parents=True, exist_ok=True)
         plt.savefig(
-            f"figures/{titulo.replace(" ", "")}.png", bbox_inches="tight", dpi=300
+            f"{folderData}/{titulo.replace(" ", "")}.png", bbox_inches="tight", dpi=300
         )
 
     plt.show()

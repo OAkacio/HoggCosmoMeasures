@@ -1,6 +1,7 @@
 # -------------------------------------------------- Bibliotecas --------------------------------------------------
 
 import numpy as np
+from pathlib import Path as path
 
 # -------------------------------------------------- Funções de Salvamento .txt --------------------------------------------------
 
@@ -27,8 +28,11 @@ def save_data(
         f"{x_grand},{y_grand}"
     )
 
+    folderData = path("data")
+    folderData.mkdir(parents=True, exist_ok=True)
+
     np.savetxt(
-        f"data/{nome_arquivo}.txt",
+        f"{folderData}/{nome_arquivo}.txt",
         data,
         fmt=f"%.{decimais}f",
         delimiter=",",
