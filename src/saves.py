@@ -1,5 +1,8 @@
+# -------------------------------------------------- Bibliotecas --------------------------------------------------
+
 import numpy as np
-import matplotlib.pyplot as plt
+
+# -------------------------------------------------- Funções de Salvamento .txt --------------------------------------------------
 
 
 def save_data(
@@ -14,7 +17,7 @@ def save_data(
     x_unit="",
     y_grand="",
     y_unit="",
-):
+):  # Função que salva um determinado conjunto de dados em um arquivo.txt
     data = np.column_stack((vecX, vecY))
 
     header_text = (
