@@ -142,7 +142,7 @@ def main(Omega_M, Omega_EE, w, z, z_step):
             True,
             DLvectorX,
             DLvectorY,
-            "Distância de Luminosidade Exata",
+            f"Distância de Luminosidade Exata - {UniType(Omega_K(Omega_M,Omega_EE))}",
             "Redshift (adm.)",
             "Distância de Luminosidade (Mpc)",
         )
@@ -150,7 +150,7 @@ def main(Omega_M, Omega_EE, w, z, z_step):
             True,
             DLAPvectorX,
             DLAPvectorY,
-            "Distância de Luminosidade Aproximada",
+            f"Distância de Luminosidade Aproximada - {UniType(Omega_K(Omega_M,Omega_EE))}",
             "Redshift (adm.)",
             "Distância de Luminosidade (Mpc)",
         )
@@ -158,7 +158,7 @@ def main(Omega_M, Omega_EE, w, z, z_step):
             True,
             DIFvectorX,
             DIFvectorY,
-            "Anlálise de Erro Aproximação vs. Exato",
+            f"Anlálise de Erro Aproximação vs. Exato - {UniType(Omega_K(Omega_M,Omega_EE))}",
             "Redshift (adm.)",
             "dL Exato - dL Aproximado  (Mpc)",
         )
@@ -166,7 +166,7 @@ def main(Omega_M, Omega_EE, w, z, z_step):
             True,
             MUvectorX,
             MUvectorY,
-            "Módulo de Distância Exato",
+            f"Módulo de Distância Exato - {UniType(Omega_K(Omega_M,Omega_EE))}",
             "Redshift (adm.)",
             "Módulo de Distância (mag)",
         )
