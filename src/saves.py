@@ -1,6 +1,20 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
-def save_data(nome_arquivo="data",decimais=10, vecX=[], vecY=[], description="", dominio_inferior=0.0, dominio_superior=0.0,x_grand="", x_unit="",y_grand="", y_unit=""):
+
+def save_data(
+    nome_arquivo="data",
+    decimais=10,
+    vecX=[],
+    vecY=[],
+    description="",
+    dominio_inferior=0.0,
+    dominio_superior=0.0,
+    x_grand="",
+    x_unit="",
+    y_grand="",
+    y_unit="",
+):
     data = np.column_stack((vecX, vecY))
 
     header_text = (
