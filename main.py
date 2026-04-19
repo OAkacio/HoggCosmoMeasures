@@ -6,7 +6,7 @@ from scipy.integrate import quad
 from src.parameters import *
 from src.core import *
 from src.plot import *
-from src.saves import *
+from src.save_load import *
 
 # -------------------------------------------------- Início da Rotina --------------------------------------------------
 
@@ -174,6 +174,84 @@ def main(Omega_M, Omega_EE, w, z, z_step):
     except Exception as e:
         print(f"Falha no processo de plotagem dos gráficos! Erro: {e}")
 
+def superposicao(Omega_M, Omega_EE, w, z, z_step):
+
+    try:  # Inicia a rotina principal para 3 universos diferentes
+        main(Omega_M, Omega_EE, w, z, z_step)
+        main(1, 0, w, z, z_step)
+        main(0, 1, w, z, z_step)
+
+    except Exception as e:
+        print(f"Um erro foi encontrado ao tentar executar a rotina principal. Erro: {e}")
+
+    try:  # Inicia processo de plotagem dos gráficos de Distância de Luminosidade
+        dadosM = "DLdados OM 100 OEE 0.txt"
+        dadosEE = "DLdados OM 0 OEE 100.txt"
+        dadosMEE = f"DLdados OM {Omega_M*100} OEE {Omega_EE*100}.txt"
+
+        x1 = load_data(f"data/{dadosM}")[0]
+        x2 = load_data(f"data/{dadosEE}")[0]
+        x3 = load_data(f"data/{dadosMEE}")[0]
+
+        y1 = load_data(f"data/{dadosM}")[1]
+        y2 = load_data(f"data/{dadosEE}")[1]
+        y3 = load_data(f"data/{dadosMEE}")[1]
+
+        ppplot(
+            True,
+            x1,
+            y1,
+            x2,
+            y2,
+            x3,
+            y3,
+            "Universo OM",
+            "Universo OEE",
+            "Universo OMEE",
+            "Comparação de Distâncias de Luminosidade",
+            "Redshift (adm.)",
+            "Distância de Luminosidade (Mpc)",
+        )
+    except Exception as e:
+        print(
+            f"Um erro foi encontrado ao tentar fazer a sobreposição dos gráficos de Distância de luminosidade. Erro: {e}"
+        )
+
+    try:
+
+        dadosM = "MUdados OM 100 OEE 0.txt"
+        dadosEE = "MUdados OM 0 OEE 100.txt"
+        dadosMEE = f"MUdados OM {Omega_M*100} OEE {Omega_EE*100}.txt"
+
+        x1 = load_data(f"data/{dadosM}")[0]
+        x2 = load_data(f"data/{dadosEE}")[0]
+        x3 = load_data(f"data/{dadosMEE}")[0]
+
+        y1 = load_data(f"data/{dadosM}")[1]
+        y2 = load_data(f"data/{dadosEE}")[1]
+        y3 = load_data(f"data/{dadosMEE}")[1]
+
+        ppplot(
+            True,
+            x1,
+            y1,
+            x2,
+            y2,
+            x3,
+            y3,
+            "Universo OM",
+            "Universo OEE",
+            "Universo OMEE",
+            "Comparação de Módulos e Distância",
+            "Redshift (adm.)",
+            "Distância de Luminosidade (mag)",
+        )
+
+    except Exception as e:
+        print(
+            f"Um erro foi encontrado ao tentar fazer a sobreposição dos gráficos de Módulo de Distância. Erro: {e}"
+        )
+
 
 if __name__ == "__main__":
-    main(Omega_M, Omega_EE, w, z, z_step)
+    superposicao(Omega_M, Omega_EE, w, z, z_step)

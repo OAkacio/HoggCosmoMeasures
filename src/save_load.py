@@ -39,3 +39,19 @@ def save_data(
         header=header_text,
         comments="# ",
     )
+
+def load_data(caminho_arquivo):
+    """
+    Lê um arquivo .txt formatado com cabeçalhos '#' e separado por vírgulas.
+    Retorna dois vetores (vetor X e vetor Y).
+    """
+    try:  # Carrega um documento .txt e cria dois vetores para ele no formato ([0=x,[1]=y)
+        vetor_x, vetor_y = np.loadtxt(caminho_arquivo, delimiter=",", unpack=True)
+        return vetor_x, vetor_y
+
+    except FileNotFoundError:  # Except apra caso o caminho não seja encontrado
+        print(f"Erro: O arquivo '{caminho_arquivo}' não foi encontrado.")
+        return [], []
+    except Exception as e:  # Except para outros casos de falha
+        print(f"Erro ao ler o arquivo: {e}")
+        return [], []
