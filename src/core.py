@@ -12,9 +12,9 @@ def q0(Omega_M, Omega_EE):
     return 0.5 * Omega_M - Omega_EE
 
 
-def dL(dm, z):
+def dL(Omega_M, Omega_EE, resint, z):
     """Calcula a distância de luminosidade (dL) a partir da distância comóvel transversal (dm) e do redshift (z)."""
-    return (1 + z) * dm
+    return (1 + z) * dm(Omega_M, Omega_EE, resint)
 
 
 def approx_dL(Omega_M, Omega_EE, z):
@@ -27,9 +27,9 @@ def Omega_K(Omega_M, Omega_EE):
     return 1 - (Omega_M + Omega_EE)
 
 
-def mu(dm, z):
+def mu(Omega_M, Omega_EE, resint, z):
     """Calcula a magnitude de distância (mu) a partir da distância de luminosidade (dL) e do redshift (z)."""
-    return 5 * np.log10(dL(dm, z)) + 25
+    return 5 * np.log10(dL(Omega_M, Omega_EE, resint, z)) + 25
 
 
 def E(z, Omega_M, Omega_EE):
@@ -41,22 +41,24 @@ def E(z, Omega_M, Omega_EE):
     )
 
 
-def Sk(k, r):
+def Sk(Omega_M, Omega_EE, r):
     """Calcula a função de distância comóvel transversal (Sk) a partir do parâmetro de curvatura (k) e da distância comóvel radial (r)."""
-    if k > 0:
-        return np.sin(np.sqrt(k) * r) / np.sqrt(k)
-    elif k < 0:
-        return np.sinh(np.sqrt(-k) * r) / np.sqrt(-k)
+    if k(Omega_M, Omega_EE) > 0:
+        return np.sin(np.sqrt(k(Omega_M, Omega_EE)) * r) / np.sqrt(k(Omega_M, Omega_EE))
+    elif k(Omega_M, Omega_EE) < 0:
+        return np.sinh(np.sqrt(-k(Omega_M, Omega_EE)) * r) / np.sqrt(
+            -k(Omega_M, Omega_EE)
+        )
     else:
         return r
 
 
-def dm(k, dC):
+def dm(Omega_M, Omega_EE, resint):
     """Calcula a distância comóvel transversal (dm) a partir do parâmetro de curvatura (k) e da distância comóvel radial (dC)."""
-    return Sk(k, dC)
+    return Sk(Omega_M, Omega_EE, dC(resint))
 
 
-def int(z, Omega_M, Omega_EE):
+def integral(z, Omega_M, Omega_EE):
     """Formaliza a quantidade a ser integrada para o cálculo da distância comóvel radial (dC) a partir do redshift (z) e dos parâmetros de densidade de matéria e energia escura."""
     return 1 / E(z, Omega_M, Omega_EE)
 
@@ -64,3 +66,22 @@ def int(z, Omega_M, Omega_EE):
 def dC(resint):
     """Calcula o valor de distância comóvel radial (dC) a partir do resultado da integração dda função int."""
     return (c / H0) * resint
+
+
+def UniType(Omega_k):
+    if Omega_k > 0:
+        return "Universo Aberto"
+    elif Omega_k < 0:
+        return "Universo Fechado"
+    else:
+        return "Universo Plano"
+
+
+def k(Omega_M, Omega_EE):
+    Ok = Omega_K(Omega_M, Omega_EE)
+    if Ok > 0:
+        return -1
+    elif Ok < 0:
+        return +1
+    else:
+        return 0
