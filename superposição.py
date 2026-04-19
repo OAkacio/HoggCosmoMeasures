@@ -28,10 +28,9 @@ except Exception as e:
     print(f"Um erro foi encontrado ao tentar executar a rotina principal. Erro: {e}")
 
 try:  # Inicia processo de plotagem dos gráficos de Distância de Luminosidade
-    dadosM="DLdados OM 100 OEE 0.txt"
-    dadosEE="DLdados OM 0 OEE 100.txt"
-    dadosMEE="DLdados OM 31.5 OEE 68.5.txt"
-
+    dadosM = "DLdados OM 100 OEE 0.txt"
+    dadosEE = "DLdados OM 0 OEE 100.txt"
+    dadosMEE = "DLdados OM 31.5 OEE 68.5.txt"
 
     x1 = load_data(f"data/{dadosM}")[0]
     x2 = load_data(f"data/{dadosEE}")[0]
@@ -63,10 +62,10 @@ except Exception as e:
 
 try:
 
-    dadosM="MUdados OM 100 OEE 0.txt"
-    dadosEE="MUdados OM 0 OEE 100.txt"
-    dadosMEE="MUdados OM 31.5 OEE 68.5.txt"
-    
+    dadosM = "MUdados OM 100 OEE 0.txt"
+    dadosEE = "MUdados OM 0 OEE 100.txt"
+    dadosMEE = "MUdados OM 31.5 OEE 68.5.txt"
+
     x1 = load_data(f"data/{dadosM}")[0]
     x2 = load_data(f"data/{dadosEE}")[0]
     x3 = load_data(f"data/{dadosMEE}")[0]
