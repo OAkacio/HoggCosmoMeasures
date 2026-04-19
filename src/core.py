@@ -7,9 +7,9 @@ from src.parameters import *
 # -------------------------------------------------- Funções Fundamentais --------------------------------------------------
 
 
-def q0(Omega_M, Omega_EE):
+def q0(Omega_M, Omega_EE,w):
     """Calcula o parâmetro de desaceleração atual (q0) a partir dos parâmetros de densidade de matéria e energia escura."""
-    return 0.5 * Omega_M - Omega_EE
+    return 0.5*Omega_M+0.5*Omega_EE*(1+3*w)
 
 
 def dL(Omega_M, Omega_EE, resint, z):
@@ -19,7 +19,7 @@ def dL(Omega_M, Omega_EE, resint, z):
 
 def approx_dL(Omega_M, Omega_EE, z):
     """Calcula a aproximação de distância de luminosidade (dL) para pequenos redshifts (z) usando o parâmetro de desaceleração (q0)."""
-    return (c / H0) * z * (1 + (1 - q0(Omega_M, Omega_EE)) * z / 2)
+    return (c / H0) * z * (1 + (1 - q0(Omega_M, Omega_EE,w)) * z / 2)
 
 
 def Omega_K(Omega_M, Omega_EE):
