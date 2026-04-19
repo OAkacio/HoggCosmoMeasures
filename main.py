@@ -2,7 +2,6 @@
 
 import numpy as np
 from scipy.integrate import quad
-import traceback
 
 from src.parameters import *
 from src.core import *
