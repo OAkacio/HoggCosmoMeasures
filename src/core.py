@@ -43,4 +43,10 @@ def dm(k,dC):
     """Calcula a distância comóvel transversal (dm) a partir do parâmetro de curvatura (k) e da distância comóvel radial (dC)."""
     return Sk(k,dC)
 
-#...
+def int(z, Omega_M, Omega_EE):
+    """Formaliza a quantidade a ser integrada para o cálculo da distância comóvel radial (dC) a partir do redshift (z) e dos parâmetros de densidade de matéria e energia escura."""
+    return 1/E(z, Omega_M, Omega_EE)
+
+def dC(resint):
+    """Calcula o valor de distância comóvel radial (dC) a partir do resultado da integração dda função int."""
+    return (c/H0)*resint
