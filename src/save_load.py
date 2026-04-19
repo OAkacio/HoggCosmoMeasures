@@ -40,6 +40,7 @@ def save_data(
         comments="# ",
     )
 
+
 def load_data(caminho_arquivo):
     """
     Lê um arquivo .txt formatado com cabeçalhos '#' e separado por vírgulas.

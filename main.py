@@ -174,6 +174,7 @@ def main(Omega_M, Omega_EE, w, z, z_step):
     except Exception as e:
         print(f"Falha no processo de plotagem dos gráficos! Erro: {e}")
 
+
 def superposicao(Omega_M, Omega_EE, w, z, z_step):
 
     try:  # Inicia a rotina principal para 3 universos diferentes
@@ -182,7 +183,9 @@ def superposicao(Omega_M, Omega_EE, w, z, z_step):
         main(0, 1, w, z, z_step)
 
     except Exception as e:
-        print(f"Um erro foi encontrado ao tentar executar a rotina principal. Erro: {e}")
+        print(
+            f"Um erro foi encontrado ao tentar executar a rotina principal. Erro: {e}"
+        )
 
     try:  # Inicia processo de plotagem dos gráficos de Distância de Luminosidade
         dadosM = "DLdados OM 100 OEE 0.txt"
