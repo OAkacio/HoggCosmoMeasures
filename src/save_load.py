@@ -1,11 +1,9 @@
 # -------------------------------------------------- Bibliotecas --------------------------------------------------
-
 import numpy as np
 from pathlib import Path as path
 
+
 # -------------------------------------------------- Funções de Salvamento .txt --------------------------------------------------
-
-
 def save_data(
     nome_arquivo="data",
     decimais=10,
@@ -20,17 +18,14 @@ def save_data(
     y_unit="",
 ):  # Função que salva um determinado conjunto de dados em um arquivo.txt
     data = np.column_stack((vecX, vecY))
-
     header_text = (
         f"Descripiton: {description}\n"
         f"Domain: {x_grand} in [{dominio_inferior}, {dominio_superior}]\n"
         f"Units: {x_grand} [{x_unit}], {y_grand} [{y_unit}] \n"
         f"{x_grand},{y_grand}"
     )
-
     folderData = path("data")
     folderData.mkdir(parents=True, exist_ok=True)
-
     np.savetxt(
         f"{folderData}/{nome_arquivo}.txt",
         data,
@@ -49,7 +44,6 @@ def load_data(caminho_arquivo):
     try:  # Carrega um documento .txt e cria dois vetores para ele no formato ([0=x,[1]=y)
         vetor_x, vetor_y = np.loadtxt(caminho_arquivo, delimiter=",", unpack=True)
         return vetor_x, vetor_y
-
     except FileNotFoundError:  # Except apra caso o caminho não seja encontrado
         print(f"Erro: O arquivo '{caminho_arquivo}' não foi encontrado.")
         return [], []
