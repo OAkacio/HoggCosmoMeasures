@@ -1,9 +1,10 @@
-# -------------------------------------------------- Bibliotecas --------------------------------------------------
+#
+#! -------------------------------------------------- Bibliotecas --------------------------------------------------
 import numpy as np
 from src.parameters import *
 
 
-# -------------------------------------------------- Funções Fundamentais --------------------------------------------------
+#! -------------------------------------------------- Funções Fundamentais --------------------------------------------------
 def q0(Omega_M, Omega_EE, w):
     """Calcula o parâmetro de desaceleração atual (q0) a partir dos parâmetros de densidade de matéria e energia escura."""
     return 0.5 * Omega_M + 0.5 * Omega_EE * (1 + 3 * w)

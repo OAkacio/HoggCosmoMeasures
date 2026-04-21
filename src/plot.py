@@ -1,11 +1,12 @@
-# -------------------------------------------------- Bibliotecas --------------------------------------------------
+#
+#! -------------------------------------------------- Bibliotecas --------------------------------------------------
 import matplotlib.pyplot as plt
 import random
 from pathlib import Path as path
 from matplotlib.ticker import AutoMinorLocator
 
 
-# -------------------------------------------------- Funções de Plotagem de Gráficos --------------------------------------------------
+#! -------------------------------------------------- Funções de Plotagem de Gráficos --------------------------------------------------
 def plot(
     save, x, y, titulo="", titulo_x="X", titulo_y="Y", tam_fonte=14, espessura=1.5
 ):
