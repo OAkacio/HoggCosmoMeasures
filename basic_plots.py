@@ -11,11 +11,11 @@ try:  # * Rotina para plotagem dos gráficos
     DLvectorX = load_data(f"data/DLdados.txt")[0]
     DLAPvectorX = load_data(f"data/DLAPdados.txt")[0]
     DIFvectorX = load_data(f"data/DIFdados.txt")[0]
-    MUvectorX = load_data(f"data/MUDados.txt")[0]
+    MUvectorX = load_data(f"data/MUdados.txt")[0]
     DLvectorY = load_data(f"data/DLdados.txt")[1]
     DLAPvectorY = load_data(f"data/DLAPdados.txt")[1]
     DIFvectorY = load_data(f"data/DIFdados.txt")[1]
-    MUvectorY = load_data(f"data/MUDados.txt")[1]
+    MUvectorY = load_data(f"data/MUdados.txt")[1]
     plot(
         True,
         DLvectorX,
