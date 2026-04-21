@@ -2,7 +2,7 @@
 from astropy import constants as const
 
 # -------------------------------------------------- Constantes Físicas --------------------------------------------------
-H0 = 68  # Constante de Hubble [km/s/Mpc]
+H0 = 70  # Constante de Hubble [km/s/Mpc]
 c = const.c.to("km/s").value  # Velocidade da luz [km/s]
 # -------------------------------------------------- Parâmetros de Entrada --------------------------------------------------
 Omega_M = 0.315  # Densidade de matéria [adm.]
