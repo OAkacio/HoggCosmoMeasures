@@ -27,11 +27,37 @@ pip install -r requirements.txt
 
 ## Usage
 
-To run the full integration routine, generate the `.txt` data files for the three base models, and plot the superposition graphs, execute:
+The codebase is highly modular. You can adjust inputs, run core integrations, and generate specific plots using dedicated scripts.
+
+**1. Configure Parameters** 
+
+Before running the integrator, define your custom cosmological parameters ($\Omega_m$, $\Omega_{EE}$, $w$, and maximum redshift $z$) in src/parameters.py. Physical constants and the integration step can be modified in src/constants.py.
+
+**2. Generate Data (Single Model)** 
+
+To run the full numerical integration routine for your custom model and export the results to .txt files inside the data/ directory, execute:
 
 ```bash
 python main.py
 ```
+
+**3. Plot Basic Graphs**
+
+Once the data is generated, you can plot the individual curves for Luminosity Distance, Distance Modulus, and Approximation Errors for your custom model by running:
+
+```bash
+python basic_plots.py
+```
+
+**4. Superposition & Comparison**
+
+To automatically run the integration for three distinct universe scenarios (Custom, Matter-only, and Dark Energy-only) and plot their superpositions, use the comparison script:
+
+```bash
+python comparison_plot.py
+```
+
+(All generated graphs will be saved in high resolution inside the figures/ directory).
 
 ## Theoretical Background
 
@@ -66,11 +92,18 @@ $$\mu = 5 \log_{10}\left(D_L\right) + 25$$
 ## Project Structure
 
 ```text
-├── data/           # Generated data files (.txt)
-├── figures/        # Superposition plots (.png)
-├── src/            # Core modules (core.py, parameters.py, plot.py, save_load.py)
-├── main.py         # Integration engine and data generator
-└── requirements.txt
+├── data/                  # Generated numerical data files (.txt)
+├── figures/               # High-resolution plots (.png)
+├── src/                   # Core source code
+│   ├── constants.py       # Physical constants and step sizes
+│   ├── core.py            # Mathematical functions and equations
+│   ├── parameters.py      # Input cosmological parameters
+│   ├── plot.py            # Plotting configurations (LaTeX style)
+│   └── save_load.py       # I/O functions for handling .txt files
+├── basic_plots.py         # Script to plot single-model graphs
+├── comparison_plot.py     # Script to generate and plot model superpositions
+├── main.py                # Core integration engine and data generator
+└── requirements.txt       # Project dependencies
 ```
 
 ## Motivation
