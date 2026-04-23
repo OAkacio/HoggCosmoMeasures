@@ -1,9 +1,9 @@
-# FLRW Luminosity Distance Integrator
+# Hogg-FLRW-integrator
 
 ![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-This repository contains a numerical integrator developed in Python for calculating the Luminosity Distance ($d_L$) within Friedmann-Lemaître-Robertson-Walker (FLRW) cosmological models. The code enables the superposition and comparison of various universe models (Matter-dominated, Dark Energy-dominated, and Benchmark).
+This repository contains a numerical integrator developed in Python for calculating the Luminosity Distance ($d_L$) within Hogg's framework and Friedmann-Lemaître-Robertson-Walker (FLRW) cosmological models. The code enables the superposition and comparison of various universe models (Matter-dominated, Dark Energy-dominated, and Benchmark).
 
 ## Authorship
 
