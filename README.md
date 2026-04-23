@@ -59,6 +59,8 @@ python comparison_plot.py
 
 (All generated graphs will be saved in high resolution inside the figures/ directory).
 
+![superpositions Plot Example](figures/ComparaçãodeDistânciasdeLuminosidade.png)
+
 ## Theoretical Background
 
 The mathematical foundation of this integrator is based on the classical definitions of cosmological distances for an FLRW model, as summarized in standard cosmography literature. The code calculates these quantities in a cascading sequence:
