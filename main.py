@@ -18,6 +18,7 @@ from src.parameters import *
 from src.core import *
 from src.save_load import *
 from src.constants import *
+from src.system import *
 
 
 # * =============================================================================
@@ -30,30 +31,23 @@ from src.constants import *
 
 
 def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
-    print("-" * 100)
-    print("\n Inicializando rotina...  \n")
-    print("-" * 100)
+    header("iniciando HoggCosmoMeasures...", Omega_M=Omega_M, Omega_EE=Omega_EE, w=w, z=z)
     try:
         IntANDError = quad(integral, 0, z, args=(Omega_M, Omega_EE))
         resint = IntANDError[0]
         ERRORresint = IntANDError[1]
-        print(
-            f"Processo de integração numérica finalizado com sucesso!\nResultado da integração: {resint} \nErro estimado: {ERRORresint}"
-        )
+        status("Processo de integração numérica finalizado com sucesso!")
+        param("Integração Numérica", resint, "Mpc")
+        param("Erro Estimado", ERRORresint, "Mpc")
     except Exception as e:
-        print(f"Processo de integração numérica falhou! Erro: {e}")
-    print("-" * 100)
-    print("\n Cálculando dados...  \n")
-    print("-" * 100)
-    print(f"Parâmetro derivado de curvatura (Omega_K): {Omega_K(Omega_M, Omega_EE)}")
-    print(
-        f"Tipo de Universo: {UniType(Omega_K(Omega_M,Omega_EE))}, k = {k(Omega_M, Omega_EE)}"
-    )
-    print(f"Distância comóvel radial (dC): {dC(resint)} Mpc")
-    print(f"Parâmetro de desaceleração (q0): {q0(Omega_M, Omega_EE,w)}")
-    print("-" * 100)
-    print("\n Iniciando exportação de dados...  \n")
-    print("-" * 100)
+        status(f"Processo de integração numérica falhou! Erro: {e}")
+    status("Iniciando cálculo de parâmetros do universo")
+    param("Tipo de universo", UniType(Omega_K(Omega_M,Omega_EE)))
+    param("Constante de curvatura espacial (k)", k(Omega_M, Omega_EE))
+    param("Parâmetro derivado de curvatura (Omega_K)", Omega_K(Omega_M, Omega_EE))
+    param("Distância comóvel radial (dC)", dC(resint), "Mpc")
+    param("Parâmetro de desaceleração (q0)", q0(Omega_M, Omega_EE,w))
+    status("Iniciando exportação de dados")
     try:
         DLvectorX = []
         DLvectorY = []
@@ -235,9 +229,10 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
                 "dL",
                 "Mpc",
             )
-        print("Exportação de dados concluida com sucesso!")
+        status("Exportação de dados concluida com sucesso!")
+        status("Rotina principal finalizada!")
     except Exception as e:
-        print(f"Falha no processo de salvamento! Erro: {e}")
+        status(f"Falha no processo de salvamento! Erro: {e}")
 
 
 # ? -----------------------------------------------------------------------------
