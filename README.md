@@ -61,6 +61,14 @@ python comparison_plot.py
 
 ![superpositions Plot Example](figures/ComparaçãodeDistânciasdeLuminosidade.png)
 
+**5. Interactive Demonstration
+
+For a guided, interactive exploration of the models and plots, a Jupyter Notebook is available. You can open and run it using your preferred editor (like VS Code) or via terminal:
+
+```bash
+jupyter notebook notebooks/demonstration.ipynb
+```
+
 ## Theoretical Background
 
 The mathematical foundation of this integrator is based on the classical definitions of cosmological distances for an FLRW model, as summarized in standard cosmography literature. The code calculates these quantities in a cascading sequence:
@@ -96,6 +104,10 @@ $$\mu = 5 \log_{10}\left(D_L\right) + 25$$
 ```text
 ├── data/                  # Generated numerical data files (.txt)
 ├── figures/               # High-resolution plots (.png)
+├── notebooks/             # Interactive demonstrations
+│   ├── data/              # Notebook-specific generated data
+│   ├── figures/           # Notebook-specific generated plots
+│   └── demonstration.ipynb # Interactive demo of the integrator
 ├── src/                   # Core source code
 │   ├── constants.py       # Physical constants and step sizes
 │   ├── core.py            # Mathematical functions and equations
