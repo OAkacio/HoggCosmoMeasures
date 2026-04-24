@@ -1,4 +1,5 @@
 #
+#! Atualização: melhorar os comentários gerais de todas as partes do código
 #! -------------------------------------------------- Bibliotecas --------------------------------------------------
 import numpy as np
 from scipy.integrate import quad
