@@ -21,6 +21,7 @@ from matplotlib.ticker import AutoMinorLocator
 def plot(
     save, x, y, titulo="", titulo_x="X", titulo_y="Y", tam_fonte=14, espessura=1.5
 ):
+    """Função responsável por plotar gráficos com o estilo padrão LaTeX/Científico."""
     plt.rcParams.update(
         {
             "font.family": "serif",
@@ -83,6 +84,7 @@ def ppplot(
     tam_fonte=14,
     espessura=1.5,
 ):
+    """Função responsável por plotar gráficos sobrepostos com o estilo padrão LaTeX/Científico."""
     plt.rcParams.update(
         {
             "font.family": "serif",

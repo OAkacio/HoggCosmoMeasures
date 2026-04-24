@@ -29,6 +29,7 @@ def save_data(
     y_grand="",
     y_unit="",
 ):
+    """Função responsável por salvar um determinado conjunto de dados em um arquivo.txt"""
     data = np.column_stack((vecX, vecY))
     header_text = (
         f"Descripiton: {description}\n"
