@@ -1,4 +1,5 @@
 #
+#! Atualização: Melhorar os notebooks e comentários
 #! -------------------------------------------------- Bibliotecas --------------------------------------------------
 import numpy as np
 from scipy.integrate import quad
