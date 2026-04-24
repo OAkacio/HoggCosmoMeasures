@@ -28,7 +28,7 @@ def save_data(
     x_unit="",
     y_grand="",
     y_unit="",
-):  # Função que salva um determinado conjunto de dados em um arquivo.txt
+):
     data = np.column_stack((vecX, vecY))
     header_text = (
         f"Descripiton: {description}\n"
@@ -58,7 +58,7 @@ def load_data(caminho_arquivo):
     Lê um arquivo .txt formatado com cabeçalhos '#' e separado por vírgulas.
     Retorna dois vetores (vetor X e vetor Y).
     """
-    try:  # Carrega um documento .txt e cria dois vetores para ele no formato ([0=x,[1]=y)
+    try:
         vetor_x, vetor_y = np.loadtxt(caminho_arquivo, delimiter=",", unpack=True)
         return vetor_x, vetor_y
     except FileNotFoundError:  # Except apra caso o caminho não seja encontrado

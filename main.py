@@ -33,7 +33,7 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
     print("-" * 100)
     print("\n Inicializando rotina...  \n")
     print("-" * 100)
-    try:  # * Rotina para realizar a integração numérica e calcular os parâmetros associados
+    try:
         IntANDError = quad(integral, 0, z, args=(Omega_M, Omega_EE))
         resint = IntANDError[0]
         ERRORresint = IntANDError[1]
@@ -43,9 +43,7 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
     except Exception as e:
         print(f"Processo de integração numérica falhou! Erro: {e}")
     print("-" * 100)
-    print(
-        "\n Cálculando dados...  \n"
-    )  # * Devolução dos dados característicos principais para o usuário
+    print("\n Cálculando dados...  \n")
     print("-" * 100)
     print(f"Parâmetro derivado de curvatura (Omega_K): {Omega_K(Omega_M, Omega_EE)}")
     print(
@@ -53,11 +51,10 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
     )
     print(f"Distância comóvel radial (dC): {dC(resint)} Mpc")
     print(f"Parâmetro de desaceleração (q0): {q0(Omega_M, Omega_EE,w)}")
-
     print("-" * 100)
     print("\n Iniciando exportação de dados...  \n")
     print("-" * 100)
-    try:  # * Rotina para salvar os dados em arquivos .txt e variáveis vetores
+    try:
         DLvectorX = []
         DLvectorY = []
         MUvectorX = []
@@ -246,6 +243,7 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
 # ? -----------------------------------------------------------------------------
 # ?         MAIN GUARD
 # ? -----------------------------------------------------------------------------
+
 
 if __name__ == "__main__":
     main(Omega_M, Omega_EE, w, z, z_step, type="custom")

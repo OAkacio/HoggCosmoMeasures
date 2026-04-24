@@ -77,7 +77,7 @@ def dm(Omega_M, Omega_EE, resint):
 
 
 def dC(resint):
-    """Calcula o valor de distância comóvel radial (dC) a partir do resultado da integração dda função int."""
+    """Calcula o valor de distância comóvel radial (dC) a partir do resultado da integração dda função integral."""
     return (c / H0) * resint
 
 
@@ -93,7 +93,7 @@ def k(Omega_M, Omega_EE):
 
 
 # ? -----------------------------------------------------------------------------
-# ?         FUNÇÕES SISTEMÁTICAS
+# ?         FUNÇÕES SISTEMÁTICAS DE CÁLCULO
 # ? -----------------------------------------------------------------------------
 
 
