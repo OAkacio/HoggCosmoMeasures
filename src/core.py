@@ -1,10 +1,30 @@
 #
-#! -------------------------------------------------- Bibliotecas --------------------------------------------------
+# * =============================================================================
+# * DEPENDÊNCIAS
+# * =============================================================================
+
+# ? -----------------------------------------------------------------------------
+# ?         BIBLIOTECAS
+# ? -----------------------------------------------------------------------------
+
 import numpy as np
+
+# ? -----------------------------------------------------------------------------
+# ?         MÓDULOS LOCAIS
+# ? -----------------------------------------------------------------------------
+
 from src.parameters import *
 
 
-#! -------------------------------------------------- Funções Fundamentais --------------------------------------------------
+# * =============================================================================
+# * FUNÇÕES MATEMÁTICAS
+# * =============================================================================
+
+# ? -----------------------------------------------------------------------------
+# ?         FUNÇÕES FÍSICAS
+# ? -----------------------------------------------------------------------------
+
+
 def q0(Omega_M, Omega_EE, w):
     """Calcula o parâmetro de desaceleração atual (q0) a partir dos parâmetros de densidade de matéria e energia escura."""
     return 0.5 * Omega_M + 0.5 * Omega_EE * (1 + 3 * w)
@@ -56,24 +76,9 @@ def dm(Omega_M, Omega_EE, resint):
     return Sk(Omega_M, Omega_EE, dC(resint))
 
 
-def integral(z, Omega_M, Omega_EE):
-    """Formaliza a quantidade a ser integrada para o cálculo da distância comóvel radial (dC) a partir do redshift (z) e dos parâmetros de densidade de matéria e energia escura."""
-    return 1 / E(z, Omega_M, Omega_EE)
-
-
 def dC(resint):
     """Calcula o valor de distância comóvel radial (dC) a partir do resultado da integração dda função int."""
     return (c / H0) * resint
-
-
-def UniType(Omega_k):
-    """Determina o tipo de universo estudado baseado no valor do Parâmetro de Densidade de Curvatura(Omega_k)"""
-    if Omega_k > 0:
-        return "Universo Aberto"
-    elif Omega_k < 0:
-        return "Universo Fechado"
-    else:
-        return "Universo Plano"
 
 
 def k(Omega_M, Omega_EE):
@@ -85,3 +90,23 @@ def k(Omega_M, Omega_EE):
         return +1
     else:
         return 0
+
+
+# ? -----------------------------------------------------------------------------
+# ?         FUNÇÕES SISTEMÁTICAS
+# ? -----------------------------------------------------------------------------
+
+
+def integral(z, Omega_M, Omega_EE):
+    """Formaliza a quantidade a ser integrada para o cálculo da distância comóvel radial (dC) a partir do redshift (z) e dos parâmetros de densidade de matéria e energia escura."""
+    return 1 / E(z, Omega_M, Omega_EE)
+
+
+def UniType(Omega_k):
+    """Determina o tipo de universo estudado baseado no valor do Parâmetro de Densidade de Curvatura(Omega_k)"""
+    if Omega_k > 0:
+        return "Universo Aberto"
+    elif Omega_k < 0:
+        return "Universo Fechado"
+    else:
+        return "Universo Plano"
