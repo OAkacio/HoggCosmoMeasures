@@ -8,7 +8,6 @@
 # ? -----------------------------------------------------------------------------
 
 import matplotlib.pyplot as plt
-import random
 from pathlib import Path as path
 from matplotlib.ticker import AutoMinorLocator
 
@@ -19,7 +18,7 @@ from matplotlib.ticker import AutoMinorLocator
 
 
 def plot(
-    save, x, y, titulo="", titulo_x="X", titulo_y="Y", tam_fonte=14, espessura=1.5
+    save, x, y, save_name="", titulo_x="X", titulo_y="Y", tam_fonte=14, espessura=2.5
 ):
     """Função responsável por plotar gráficos com o estilo padrão LaTeX/Científico."""
     plt.rcParams.update(
@@ -35,8 +34,7 @@ def plot(
     )
     fig, ax = plt.subplots(figsize=(8, 6), dpi=100)
     ax.plot(x, y, linewidth=espessura, color="black", linestyle="-")
-    if titulo != "":
-        ax.set_title(titulo, fontsize=tam_fonte + 2, pad=15)
+    ax.set_title("", fontsize=tam_fonte + 2, pad=15)
     ax.set_xlabel(titulo_x, labelpad=8)
     ax.set_ylabel(titulo_y, labelpad=8)
     ax.tick_params(
@@ -53,12 +51,10 @@ def plot(
     ax.grid(False)
     plt.tight_layout()
     if save == True:
-        if titulo == "":
-            titulo = f"graph{random.randint(0,100000)}"
         folderData = path("figures")
         folderData.mkdir(parents=True, exist_ok=True)
         plt.savefig(
-            folderData / f"{titulo.replace(' ', '')}.png",
+            folderData / f"{save_name.replace(' ', '')}.pdf",
             bbox_inches="tight",
             dpi=600,
             facecolor="white",
@@ -78,11 +74,11 @@ def ppplot(
     label1="Modelo1",
     label2="Modelo2",
     label3="Modelo3",
-    titulo="",
+    save_name="",
     titulo_x="X",
     titulo_y="Y",
     tam_fonte=14,
-    espessura=1.5,
+    espessura=2.5,
 ):
     """Função responsável por plotar gráficos sobrepostos com o estilo padrão LaTeX/Científico."""
     plt.rcParams.update(
@@ -98,10 +94,9 @@ def ppplot(
     )
     fig, ax = plt.subplots(figsize=(8, 6), dpi=100)
     ax.plot(x1, y1, linewidth=espessura, color="black", linestyle="-", label=label1)
-    ax.plot(x2, y2, linewidth=espessura, color="blue", linestyle="--", label=label2)
-    ax.plot(x3, y3, linewidth=espessura, color="red", linestyle=":", label=label3)
-    if titulo != "":
-        ax.set_title(titulo, fontsize=tam_fonte + 2, pad=15)
+    ax.plot(x2, y2, linewidth=espessura, color="black", linestyle="--", label=label2)
+    ax.plot(x3, y3, linewidth=espessura, color="black", linestyle=":", label=label3)
+    ax.set_title("", fontsize=tam_fonte + 2, pad=15)
     ax.set_xlabel(titulo_x, labelpad=8)
     ax.set_ylabel(titulo_y, labelpad=8)
     ax.tick_params(
@@ -112,14 +107,13 @@ def ppplot(
     )
     ax.xaxis.set_minor_locator(AutoMinorLocator())
     ax.yaxis.set_minor_locator(AutoMinorLocator())
-    # 5. Fechando a caixa do gráfico
     for spine in ax.spines.values():
         spine.set_visible(True)
         spine.set_color("black")
     ax.grid(False)
     ax.legend(
         fontsize=tam_fonte - 2,
-        frameon=True,
+        frameon=False,
         fancybox=False,
         shadow=False,
         edgecolor="black",
@@ -127,12 +121,10 @@ def ppplot(
     )
     plt.tight_layout()
     if save == True:
-        if titulo == "":
-            titulo = f"graph{random.randint(0,100000)}"
         folderData = path("figures")
         folderData.mkdir(parents=True, exist_ok=True)
         plt.savefig(
-            folderData / f"{titulo.replace(' ','')}.png",
+            folderData / f"{save_name.replace(' ','')}.pdf",
             bbox_inches="tight",
             dpi=600,
             facecolor="white",

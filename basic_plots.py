@@ -10,6 +10,7 @@
 from src.plot import *
 from src.save_load import *
 from src.system import *
+from src.constants import *
 
 # * =============================================================================
 # * ROTINA PRINCIPAL
@@ -29,34 +30,34 @@ try:
     plot(
         True,
         DLvectorX,
-        DLvectorY,
+        DLvectorY / (c / H0),
         f"Curva de Distância de Luminosidade",
-        "Redshift (adm.)",
-        "Distância de Luminosidade (Mpc)",
+        "z",
+        r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",
     )
     plot(
         True,
         DLAPvectorX,
-        DLAPvectorY,
+        DLAPvectorY / (c / H0),
         f"Curva de Distância de Luminosidade Aproximada",
-        "Redshift (adm.)",
-        "Distância de Luminosidade (Mpc)",
+        "z",
+        r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",
     )
     plot(
         True,
         DIFvectorX,
-        DIFvectorY,
+        DIFvectorY / (c / H0),
         f"Anlálise de Erro Aproximação vs. Exato",
-        "Redshift (adm.)",
-        "dL Exato - dL Aproximado  (Mpc)",
+        "z",
+        r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",
     )
     plot(
         True,
         MUvectorX,
         MUvectorY,
         f"Curva de Módulo de Distância",
-        "Redshift (adm.)",
-        "Módulo de Distância (mag)",
+        "z",
+        r"$\mu$ (mag)",
     )
     status("Criação e salvamento dos gráficos concluida com sucesso!")
     status("Rotina de criação de gráficos finalizada")

@@ -40,9 +40,9 @@ try:
     x1 = load_data(f"data/DLdadosM.txt")[0]
     x2 = load_data(f"data/DLdadosEE.txt")[0]
     x3 = load_data(f"data/DLdados.txt")[0]
-    y1 = load_data(f"data/DLdadosM.txt")[1]
-    y2 = load_data(f"data/DLdadosEE.txt")[1]
-    y3 = load_data(f"data/DLdados.txt")[1]
+    y1 = load_data(f"data/DLdadosM.txt")[1] / (c / H0)
+    y2 = load_data(f"data/DLdadosEE.txt")[1] / (c / H0)
+    y3 = load_data(f"data/DLdados.txt")[1] / (c / H0)
     ppplot(
         True,
         x1,
@@ -51,12 +51,13 @@ try:
         y2,
         x3,
         y3,
-        "Universo only-matter",
-        "Universo only-lambda",
-        "Universo",
+        r"Only-matter $\Omega_m=1.0, \Omega_\Lambda=0.0$",
+        r"Only-lambda $\Omega_m=0.0, \Omega_\Lambda=1.0$",
+        rf"Universo analisado $\Omega_m={Omega_M}, \Omega_\Lambda={Omega_EE}$",
         "Comparação de Distâncias de Luminosidade",
-        "Redshift (adm.)",
-        "Distância de Luminosidade (Mpc)",
+        "z",
+        r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",
+        espessura=2.5,
     )
     status("Gráficos de Distância de Luminosidade criados com sucesso!")
 except Exception as e:
@@ -82,12 +83,12 @@ try:
         y2,
         x3,
         y3,
-        "Universo only-matter",
-        "Universo only-lambda",
-        "Universo",
+        r"Only-matter $\Omega_m=1.0, \Omega_\Lambda=0.0$",
+        r"Only-lambda $\Omega_m=0.0, \Omega_\Lambda=1.0$",
+        rf"Universo analisado $\Omega_m={Omega_M}, \Omega_\Lambda={Omega_EE}$",
         "Comparação de Módulos e Distância",
-        "Redshift (adm.)",
-        "Distância de Luminosidade (mag)",
+        "z",
+        r"$\mu$ (mag)",
     )
     status("Gráficos de Módulo de Distância criados com sucesso!")
 except Exception as e:
