@@ -6,6 +6,13 @@ from pathlib import Path as path
 from matplotlib.ticker import AutoMinorLocator
 
 
+#! Atualização: Tirar títulos de gráficos;
+#! Atualização: Notação de eixos -> simbolos matemáticos e unidade, tirar nomes de eixos;
+#! Atualização: Legendas com rigor -> parâmetros cosmológicos aparecendo e bem definidos sem brevidade;
+#! Atualização: Aumentar a espessura das linhas (ajustar nos parametros);
+#! Atualização: Exportar também em .eps (vetorial)
+
+
 #! -------------------------------------------------- Funções de Plotagem de Gráficos --------------------------------------------------
 def plot(
     save, x, y, titulo="", titulo_x="X", titulo_y="Y", tam_fonte=14, espessura=1.5
