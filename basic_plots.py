@@ -46,7 +46,7 @@ try:
     plot(
         True,
         DIFvectorX,
-        DIFvectorY / (c / H0),
+        DIFvectorY,
         f"Anlálise de Erro Aproximação vs. Exato",
         "z",
         r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",

@@ -59,7 +59,6 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
         DLAPvectorY = []
         DIFvectorX = []
         DIFvectorY = []
-        iter = 0
         for i in np.arange(float(z_step), float(z) + float(z_step), float(z_step)):
             resint = quad(integral, 0, i, args=(Omega_M, Omega_EE))[0]
             DLvectorX.append(i)
@@ -68,10 +67,9 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
             MUvectorY.append(mu(Omega_M, Omega_EE, resint, i))
             DLAPvectorX.append(i)
             DLAPvectorY.append(approx_dL(Omega_M, Omega_EE, i))
-        for y in DLvectorY:
-            DIFvectorY.append(y - DLAPvectorY[iter])
-            iter = iter + 1
-        DIFvectorX = DLvectorX
+            if i<=1:
+                DIFvectorX.append(i)
+                DIFvectorY.append(DLvectorY[-1] - DLAPvectorY[-1])
         if type == "custom":
             save_data(
                 f"DLdados",
