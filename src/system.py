@@ -20,3 +20,8 @@ def status(msg):
 def param(nome, valor, unidade=""):
     unit_str = f" [{unidade}]" if unidade else ""
     print(f"      {nome} = {valor}{unit_str}")
+
+def bar(largura=60):
+    print("\n")
+    print("◇"*largura)
+    print("\n")

@@ -11,19 +11,29 @@ from main import *
 from src.plot import *
 from src.constants import *
 from src.parameters import *
+from src.system import *
 
 # * =============================================================================
 # * ROTINA PRINCIPAL
 # * =============================================================================
 
 try:
+    header("Iniciando comparison plot...")
+    status("Iniciando 1a análise")
     main(Omega_M, Omega_EE, w, z, z_step, "custom")
+    bar()
+    status("Iniciando 2a análise")
     main(1, 0, -1, z, z_step, "M")
+    bar()
+    status("Iniciando 3a análise")
     main(0, 1, -1, z, z_step, "EE")
+    bar()
+    status("Todas as análises terminadas!")
 except Exception as e:
-    print(f"Um erro foi encontrado ao tentar executar a rotina principal. Erro: {e}")
+    status(f"Um erro foi encontrado ao tentar executar a rotina principal. Erro: {e}")
 
 try:
+    status("Iniciando criação de gráficos de Distância de Luminosidade")
     dadosM = "DLdadosM.txt"
     dadosEE = "DLdadosEE.txt"
     dadosMEE = f"DLdados.txt"
@@ -48,8 +58,9 @@ try:
         "Redshift (adm.)",
         "Distância de Luminosidade (Mpc)",
     )
+    status("Gráficos de Distância de Luminosidade criados com sucesso!")
 except Exception as e:
-    print(
+    status(
         f"Um erro foi encontrado ao tentar fazer a sobreposição dos gráficos de Distância de luminosidade. Erro: {e}"
     )
 
@@ -78,7 +89,10 @@ try:
         "Redshift (adm.)",
         "Distância de Luminosidade (mag)",
     )
+    status("Gráficos de Módulo de Distância criados com sucesso!")
 except Exception as e:
-    print(
+    status(
         f"Um erro foi encontrado ao tentar fazer a sobreposição dos gráficos de Módulo de Distância. Erro: {e}"
     )
+
+status("Rotina de criação de gráficos sobrepostos finalizada!")

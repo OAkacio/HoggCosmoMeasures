@@ -31,7 +31,9 @@ from src.system import *
 
 
 def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
-    header("iniciando HoggCosmoMeasures...", Omega_M=Omega_M, Omega_EE=Omega_EE, w=w, z=z)
+    header(
+        "iniciando HoggCosmoMeasures...", Omega_M=Omega_M, Omega_EE=Omega_EE, w=w, z=z
+    )
     try:
         IntANDError = quad(integral, 0, z, args=(Omega_M, Omega_EE))
         resint = IntANDError[0]
@@ -42,11 +44,11 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
     except Exception as e:
         status(f"Processo de integração numérica falhou! Erro: {e}")
     status("Iniciando cálculo de parâmetros do universo")
-    param("Tipo de universo", UniType(Omega_K(Omega_M,Omega_EE)))
+    param("Tipo de universo", UniType(Omega_K(Omega_M, Omega_EE)))
     param("Constante de curvatura espacial (k)", k(Omega_M, Omega_EE))
     param("Parâmetro derivado de curvatura (Omega_K)", Omega_K(Omega_M, Omega_EE))
     param("Distância comóvel radial (dC)", dC(resint), "Mpc")
-    param("Parâmetro de desaceleração (q0)", q0(Omega_M, Omega_EE,w))
+    param("Parâmetro de desaceleração (q0)", q0(Omega_M, Omega_EE, w))
     status("Iniciando exportação de dados")
     try:
         DLvectorX = []

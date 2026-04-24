@@ -9,14 +9,13 @@
 
 from src.plot import *
 from src.save_load import *
+from src.system import *
 
 # * =============================================================================
 # * ROTINA PRINCIPAL
 # * =============================================================================
 
-print("-" * 100)
-print("\n Criando gráficos...  \n")
-print("-" * 100)
+header("Iniciando basic plots...")
 
 try:
     DLvectorX = load_data(f"data/DLdados.txt")[0]
@@ -59,6 +58,7 @@ try:
         "Redshift (adm.)",
         "Módulo de Distância (mag)",
     )
-    print("Criação e salvamento dos gráficos concluida com sucesso!")
+    status("Criação e salvamento dos gráficos concluida com sucesso!")
+    status("Rotina de criação de gráficos finalizada")
 except Exception as e:
-    print(f"Falha no processo de plotagem dos gráficos! Erro: {e}")
+    status(f"Falha no processo de plotagem dos gráficos! Erro: {e}")
