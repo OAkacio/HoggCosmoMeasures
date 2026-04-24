@@ -59,7 +59,7 @@ python comparison_plot.py
 
 (All generated graphs will be saved in high resolution inside the figures/ directory).
 
-![superpositions Plot Example](figures/ComparaçãodeDistânciasdeLuminosidade.png)
+![superpositions Plot Example](exemple.svg)
 
 **5. Interactive Demonstration
 
