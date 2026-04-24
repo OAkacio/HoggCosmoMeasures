@@ -1,18 +1,29 @@
 #
-#! -------------------------------------------------- Bibliotecas --------------------------------------------------
+# * =============================================================================
+# * DEPENDÊNCIAS
+# * =============================================================================
+
+# ? -----------------------------------------------------------------------------
+# ?         MÓDULOS LOCAIS
+# ? -----------------------------------------------------------------------------
+
 from main import *
 from src.plot import *
 from src.constants import *
 from src.parameters import *
 
-#! -------------------------------------------------- Inicia Rotina de Superposição --------------------------------------------------
-try:  # * Inicia a rotina principal para 3 universos diferentes
+# * =============================================================================
+# * ROTINA PRINCIPAL
+# * =============================================================================
+
+try:
     main(Omega_M, Omega_EE, w, z, z_step, "custom")
     main(1, 0, -1, z, z_step, "M")
     main(0, 1, -1, z, z_step, "EE")
 except Exception as e:
     print(f"Um erro foi encontrado ao tentar executar a rotina principal. Erro: {e}")
-try:  # * Inicia processo de plotagem dos gráficos de Distância de Luminosidade
+
+try:
     dadosM = "DLdadosM.txt"
     dadosEE = "DLdadosEE.txt"
     dadosMEE = f"DLdados.txt"
@@ -41,6 +52,7 @@ except Exception as e:
     print(
         f"Um erro foi encontrado ao tentar fazer a sobreposição dos gráficos de Distância de luminosidade. Erro: {e}"
     )
+
 try:
     dadosM = "MUdadosM.txt"
     dadosEE = "MUdadosEE.txt"
