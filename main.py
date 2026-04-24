@@ -67,7 +67,7 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
             MUvectorY.append(mu(Omega_M, Omega_EE, resint, i))
             DLAPvectorX.append(i)
             DLAPvectorY.append(approx_dL(Omega_M, Omega_EE, i))
-            if i<=1:
+            if i <= 1:
                 DIFvectorX.append(i)
                 DIFvectorY.append(DLvectorY[-1] - DLAPvectorY[-1])
         if type == "custom":
