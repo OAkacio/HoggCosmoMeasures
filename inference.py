@@ -106,11 +106,11 @@ while omegaM_var < mesh_inter_omega[1]:
 
 omegaEE_list = omegaM_list
 
-var2d=varredura_2D(omegaM_list, omegaEE_list, mu_obs_list, ERROmu_obs_list, z_list)
+var2d = varredura_2D(omegaM_list, omegaEE_list, mu_obs_list, ERROmu_obs_list, z_list)
 
 status("Varredura 2D finalizada com sucesso!")
 chi2d_min = np.min(var2d)
-MINDchi2d_min,EEINDchi2d_min = np.unravel_index(np.argmin(var2d), var2d.shape)
+MINDchi2d_min, EEINDchi2d_min = np.unravel_index(np.argmin(var2d), var2d.shape)
 param("Qui-quadrado mínimo (2dchi2_min)", chi2d_min)
 param("Densidade de materia Bestfit (2dBF_Omega_M)", omegaM_list[MINDchi2d_min])
 param("Densidade de energia Bestfit (2dBF_Omega_EE)", omegaEE_list[EEINDchi2d_min])
@@ -125,3 +125,31 @@ elipse_plot(True, omegaM_list, omegaEE_list, var2d, niveis, "elipse_var")
 
 status("Iniciando quebra de degenerescência: Aplicando Prior da CMB na malha 2D")
 
+var2dPRIOR = quebra_degenerecencia(
+    omegaM_list, omegaEE_list, var2d, Omega_K_obs, ERROOmega_K_obs
+)
+
+status("Quebra de degenerecência finalizada com sucesso!")
+chi2d_minPRIOR = np.min(var2dPRIOR)
+MINDchi2d_minPRIOR, EEINDchi2d_minPRIOR = np.unravel_index(
+    np.argmin(var2dPRIOR), var2dPRIOR.shape
+)
+param(
+    "Qui-quadrado mínimo com quebra de degenerecência (2dchi2_minPRIOR)", chi2d_minPRIOR
+)
+param(
+    "Densidade de materia Bestfit com quebra de degenerecência (2dBF_Omega_MPRIOR)",
+    omegaM_list[MINDchi2d_minPRIOR],
+)
+param(
+    "Densidade de energia Bestfit com quebra de degenerecência (2dBF_Omega_EEPRIOR)",
+    omegaEE_list[EEINDchi2d_minPRIOR],
+)
+
+status("Iniciando cálculo de incertezas")
+chi2d_sigma1PRIOR = chi2d_minPRIOR + 2.30
+chi2d_sigma2PRIOR = chi2d_minPRIOR + 6.18
+chi2d_sigma3PRIOR = chi2d_minPRIOR + 11.83
+
+niveisPRIOR = [chi2d_sigma1PRIOR, chi2d_sigma2PRIOR, chi2d_sigma3PRIOR]
+elipse_plot(True, omegaM_list, omegaEE_list, var2dPRIOR, niveisPRIOR, "elipsePRIOR_var")
