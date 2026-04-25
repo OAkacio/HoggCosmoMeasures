@@ -82,7 +82,7 @@ def load_obs_data(caminho_arquivo):
         return vetor_x, vetor_y, vetor_z
     except FileNotFoundError:
         print(f"Erro: O arquivo '{caminho_arquivo}' não foi encontrado.")
-        return [], []
+        return None
     except Exception as e:
         print(f"Erro ao ler o arquivo: {e}")
-        return [], []
+        return None
