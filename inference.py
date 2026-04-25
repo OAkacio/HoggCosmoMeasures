@@ -7,5 +7,8 @@ from src.save_load import *
 from main import *
 from src.parameters import *
 
-obsdatalist = load_obs_data("obs_data.txt")
+obsdatalist = load_obs_data(
+    "obs_data.txt"
+)  # carrega uma matriz com os vetores [z], [mu], [ERROmu]
+
 ...

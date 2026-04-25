@@ -94,7 +94,7 @@ def k(Omega_M, Omega_EE):
 
 
 # ? -----------------------------------------------------------------------------
-# ?         FUNÇÕES SISTEMÁTICAS DE CÁLCULO
+# ?         FUNÇÕES SISTEMÁTICAS DE CÁLCULO NO MAIN
 # ? -----------------------------------------------------------------------------
 
 
@@ -150,3 +150,13 @@ def solution(Omega_M, Omega_EE, z, z_step):
         DIFvectorX,
         DIFvectorY,
     ]
+
+
+# ? -----------------------------------------------------------------------------
+# ?         FUNÇÕES SISTEMÁTICAS DE CÁLCULO NO INFERENCE
+# ? -----------------------------------------------------------------------------
+
+
+def chi2(mu_obs_list, ERROmu_obs_list, mu_teo_list):
+    x = (mu_obs_list - mu_teo_list) / (ERROmu_obs_list)
+    return np.sum(x**2)
