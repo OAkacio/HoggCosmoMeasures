@@ -131,7 +131,7 @@ def solution(Omega_M, Omega_EE, z, z_step):
     DLAPvectorY = []
     DIFvectorX = []
     DIFvectorY = []
-    for i in np.arange(float(z_step), float(z) + float(z_step), float(z_step)):
+    for i in tqdm(np.arange(float(z_step), float(z) + float(z_step), float(z_step))):
         iresint = integracao(integral, Omega_M, Omega_EE, i)
         DLvectorX.append(i)
         DLvectorY.append(dL(Omega_M, Omega_EE, iresint[0], i))
@@ -194,7 +194,7 @@ def varredura_1D(omega_list, mu_obs_list, ERROmu_obs_list, z_list):
 def varredura_2D(omegaM_list, omegaEE_list, mu_obs_list, ERROmu_obs_list, z_list):
     """Função responsável por realizar uma varredura 2D (Universo com Curvatura Livre) para calcular o qui-quadrado para uma lista de módulos de distância (mu) observados (mu_obs_list), seus erros (ERROmu_obs_list) e os módulos de distância teoricos (mu_teo_list)."""
     matriz_chi2 = np.zeros((len(omegaM_list), len(omegaEE_list)))
-    for i, om in enumerate(tqdm(omegaM_list, desc="VARREDURA 2D")):
+    for i, om in enumerate(tqdm(omegaM_list, desc="PROGRESSO")):
         for j, oee in enumerate(omegaEE_list):
             mu_teorico = malha_mu_teo(om, oee, z_list)
             matriz_chi2[i, j] = chi2(mu_obs_list, ERROmu_obs_list, mu_teorico)
