@@ -108,6 +108,19 @@ plot(True, var1d[1], var1d[0], "distQuiQuad", r"$\Omega_M$", r"$\chi^2$")
 status("Criação de gráficos finalizada!")
 
 # ? -----------------------------------------------------------------------------
+# ?         PROBABILIDADE DE ENERGIA ESCURA
+# ? -----------------------------------------------------------------------------
+
+status("Iniciando cálculo da probabilidade de Omega_EE > 0.5")
+prob_ee = veross1d(var1d[0],chi_min, var1d[2])
+if prob_ee > 0.5:
+    ee1d = "confirmada!"
+else:
+    ee1d = "não confirmada!"
+param("Probabilidade de Energia Escura (P_ee)", prob_ee)
+param("Energia Escura do universo superior a 50%", ee1d)
+
+# ? -----------------------------------------------------------------------------
 # ?         VARREDURA BIDIMENSIONAL
 # ? -----------------------------------------------------------------------------
 
@@ -168,11 +181,11 @@ elipse_plot(True, omegaM_list, omegaEE_list, var2dPRIOR, niveisPRIOR, "elipsePRI
 status("Criação de gráficos finalizada!")
 
 # ? -----------------------------------------------------------------------------
-# ?         PROBABILIDADE DE ACELERAÇÃO
+# ?         PROBABILIDADE DE ACELERAÇÃO 2D
 # ? -----------------------------------------------------------------------------
 
 status("Iniciando cálculo da probabilidade de aceleração")
-prob_aceleracao = veross(var2dPRIOR, chi2d_minPRIOR, omegaM_list, omegaEE_list)
+prob_aceleracao = veross2d(var2dPRIOR, chi2d_minPRIOR, omegaM_list, omegaEE_list)
 if prob_aceleracao > 0.997:
     acel = "confirmada!"
 else:

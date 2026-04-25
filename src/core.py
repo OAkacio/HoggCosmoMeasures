@@ -217,7 +217,17 @@ def quebra_degenerecencia(
     return matriz_total
 
 
-def veross(var2dPRIOR, chi2d_minPRIOR, omegaM_list, omegaEE_list):
+def veross1d(chi2_list, chi_min, omegaEE_list):
+    """Calcula a probabilidade de Omega_EE > 0.5 para o caso 1D (Universo Plano)."""
+    L_vector = np.exp(-(np.array(chi2_list) - chi_min) / 2)
+    mask_ee = np.array(omegaEE_list) > 0.5
+    soma_total = np.sum(L_vector)
+    soma_ee_05 = np.sum(L_vector[mask_ee])
+    prob_ee = soma_ee_05 / soma_total
+    return prob_ee
+
+
+def veross2d(var2dPRIOR, chi2d_minPRIOR, omegaM_list, omegaEE_list):
     L_matrix = np.exp(-(var2dPRIOR - chi2d_minPRIOR) / 2)
     OM, OEE = np.meshgrid(omegaM_list, omegaEE_list, indexing="ij")
     mask_acel = OEE > (OM / 2)
