@@ -1,3 +1,11 @@
+#
+# * =============================================================================
+# * DEPENDÊNCIAS
+# * =============================================================================
+
+# ? -----------------------------------------------------------------------------
+# ?         MÓDULOS LOCAIS
+# ? -----------------------------------------------------------------------------
 
 from src.core import *
 from src.system import *
@@ -6,11 +14,20 @@ from main import *
 from src.parameters import *
 from src.plot import *
 
+# * =============================================================================
+# * ROTINA PRINCIPAL
+# * =============================================================================
+
 obsdatalist = load_obs_data("obs_data.txt")
 z_list = obsdatalist[0]
 mu_obs_list = obsdatalist[1]
 ERROmu_obs_list = obsdatalist[2]
 header("Inferência de dados")
+
+# ? -----------------------------------------------------------------------------
+# ?         VARREDURA UNIDIMENSIONAL
+# ? -----------------------------------------------------------------------------
+
 status("Iniciando a varredura 1D")
 omega_list = []
 omega_var = mesh_inter_omega[0]
@@ -87,8 +104,13 @@ param(
 )
 status("Cálculo de incertezas finalizado!")
 status("Iniciando criação de gráfico de distribuição qui-quadrado")
-plot(True, var1d[1], var1d[0], "distQuiQuad", r"$\Omega_M$", r"$\chi^2$")
+plot(True, var1d[1], var1d[0],"distQuiQuad", r"$\Omega_M$", r"$\chi^2$")
 status("Criação de gráficos finalizada!")
+
+# ? -----------------------------------------------------------------------------
+# ?         VARREDURA BIDIMENSIONAL
+# ? -----------------------------------------------------------------------------
+
 status("Iniciando a varredura 2D")
 omegaM_list = []
 omegaM_var = mesh_inter_omega[0]
@@ -108,7 +130,14 @@ chi2d_sigma1 = chi2d_min + 2.30
 chi2d_sigma2 = chi2d_min + 6.18
 chi2d_sigma3 = chi2d_min + 11.83
 niveis = [chi2d_sigma1, chi2d_sigma2, chi2d_sigma3]
+status("Iniciando criação de gráfico de distribuição qui-quadrado")
 elipse_plot(True, omegaM_list, omegaEE_list, var2d, niveis, "elipse_var")
+status("Criação de gráficos finalizada!")
+
+# ? -----------------------------------------------------------------------------
+# ?         QUEBRA DE DEGENERECÊNCIA (PRIOR DA CMB)
+# ? -----------------------------------------------------------------------------
+
 status("Iniciando quebra de degenerescência: Aplicando Prior da CMB na malha 2D")
 var2dPRIOR = quebra_degenerecencia(
     omegaM_list, omegaEE_list, var2d, Omega_K_obs, ERROOmega_K_obs
@@ -134,7 +163,14 @@ chi2d_sigma1PRIOR = chi2d_minPRIOR + 2.30
 chi2d_sigma2PRIOR = chi2d_minPRIOR + 6.18
 chi2d_sigma3PRIOR = chi2d_minPRIOR + 11.83
 niveisPRIOR = [chi2d_sigma1PRIOR, chi2d_sigma2PRIOR, chi2d_sigma3PRIOR]
+status("Iniciando criação de gráfico de distribuição qui-quadrado")
 elipse_plot(True, omegaM_list, omegaEE_list, var2dPRIOR, niveisPRIOR, "elipsePRIOR_var")
+status("Criação de gráficos finalizada!")
+
+# ? -----------------------------------------------------------------------------
+# ?         PROBABILIDADE DE ACELERAÇÃO
+# ? -----------------------------------------------------------------------------
+
 status("Iniciando cálculo da probabilidade de aceleração")
 prob_aceleracao = veross(var2dPRIOR, chi2d_minPRIOR, omegaM_list, omegaEE_list)
 if prob_aceleracao > 0.997:
