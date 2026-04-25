@@ -106,3 +106,10 @@ while omegaM_var < mesh_inter_omega[1]:
 omegaEE_list = omegaM_list
 
 var2d=varredura_2D(omegaM_list, omegaEE_list, mu_obs_list, ERROmu_obs_list, z_list)
+
+status("Varredura 2D finalizada com sucesso!")
+chi2d_min = np.min(var2d)
+MINDchi2d_min,EEINDchi2d_min = np.unravel_index(np.argmin(var2d), var2d.shape)
+param("Qui-quadrado mínimo (2dchi2_min)", chi2d_min)
+param("Densidade de materia Bestfit (2dBF_Omega_M)", omegaM_list[MINDchi2d_min])
+param("Densidade de energia Bestfit (2dBF_Omega_EE)", omegaEE_list[EEINDchi2d_min])
