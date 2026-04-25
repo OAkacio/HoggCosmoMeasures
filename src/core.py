@@ -188,10 +188,12 @@ def varredura_1D(omega_list, mu_obs_list, ERROmu_obs_list, z_list):
         chi2_list.append(
             chi2(mu_obs_list, ERROmu_obs_list, malha_mu_teo(om, oee, z_list))
         )
-    return chi2_list
+    return [chi2_list, omega_list, 1 - np.array(omega_list)]
 
 
-def varredura_2D(omega_list, mu_obs_list, ERROmu_obs_list, z_list):
+def varredura_2D(
+    omega_list, mu_obs_list, ERROmu_obs_list, z_list
+):  # Ainda não está pronta!
     omegaM_list = omega_list
     omegaEE_list = omega_list
     chi2_list = []
