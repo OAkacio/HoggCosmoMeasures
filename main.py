@@ -24,18 +24,22 @@ from src.system import *
 # * ROTINA PRINCIPAL
 # * =============================================================================
 
-# ? -----------------------------------------------------------------------------
-# ?         FUNÇÃO MAIN
-# ? -----------------------------------------------------------------------------
-
 
 def main(Omega_M, Omega_EE, w, z, z_step, type="return"):
     header(
         "iniciando HoggCosmoMeasures...", Omega_M=Omega_M, Omega_EE=Omega_EE, w=w, z=z
     )
+
+    # ? -----------------------------------------------------------------------------
+    # ?         CÁLCULO DE PARÂMETROS PONTUAIS
+    # ? -----------------------------------------------------------------------------
+
     try:
+        status("Iniciando processo de integração numérica para parâmetros pontuais")
         resintlist = integracao(integral, Omega_M, Omega_EE, z)
-        status("Processo de integração numérica finalizado com sucesso!")
+        status(
+            "Processo de integração numérica para parâmetros pontuais finalizado com sucesso!"
+        )
         param("Integração Numérica", resintlist[0], "Mpc")
         param("Erro Estimado", resintlist[1], "Mpc")
         param(
@@ -57,6 +61,7 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="return"):
     param("Distância comóvel radial (dC)", dC(resintlist[0]), "Mpc")
     param("Parâmetro de desaceleração (q0)", q0(Omega_M, Omega_EE, w))
     try:
+        status("Iniciando integração por todo o intervalo de redshift")
         sollist = solution(Omega_M, Omega_EE, z, z_step)
         DLvectorX = sollist[0]
         DLvectorY = sollist[1]
@@ -66,6 +71,7 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="return"):
         DLAPvectorY = sollist[5]
         DIFvectorX = sollist[6]
         DIFvectorY = sollist[7]
+        status("Integração por todo o intervalo de redshift finalizada com sucesso!")
         if type == "custom":
             status("Iniciando exportação de dados")
             save_data(
