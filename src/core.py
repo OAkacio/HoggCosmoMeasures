@@ -180,5 +180,23 @@ def varredura_1D(omegaM_list, mu_obs_list, ERROmu_obs_list, z_list):
     chi2_list = []
     for om in omegaM_list:
         oee = 1 - om
-        chi2_list.append(chi2(mu_obs_list, ERROmu_obs_list, malha_mu_teo(om, oee, z_list)))
+        chi2_list.append(
+            chi2(mu_obs_list, ERROmu_obs_list, malha_mu_teo(om, oee, z_list))
+        )
+    return chi2_list
+
+
+def varredura_2D(omega_list, mu_obs_list, ERROmu_obs_list, z_list):
+    omegaM_list = omega_list
+    omegaEE_list = omega_list
+    chi2_list = []
+    for om in omegaM_list:
+        for oee in omegaEE_list:
+            chi2_list.append(
+                chi2(
+                    mu_obs_list,
+                    ERROmu_obs_list,
+                    malha_mu_teo(om, oee, z_list),
+                )
+            )
     return chi2_list
