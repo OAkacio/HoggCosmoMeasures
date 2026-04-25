@@ -29,7 +29,7 @@ from src.system import *
 # ? -----------------------------------------------------------------------------
 
 
-def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
+def main(Omega_M, Omega_EE, w, z, z_step, type="return"):
     header(
         "iniciando HoggCosmoMeasures...", Omega_M=Omega_M, Omega_EE=Omega_EE, w=w, z=z
     )
@@ -56,7 +56,6 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
     param("Parâmetro derivado de curvatura (Omega_K)", Omega_K(Omega_M, Omega_EE))
     param("Distância comóvel radial (dC)", dC(resintlist[0]), "Mpc")
     param("Parâmetro de desaceleração (q0)", q0(Omega_M, Omega_EE, w))
-    status("Iniciando exportação de dados")
     try:
         sollist = solution(Omega_M, Omega_EE, z, z_step)
         DLvectorX = sollist[0]
@@ -68,6 +67,7 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
         DIFvectorX = sollist[6]
         DIFvectorY = sollist[7]
         if type == "custom":
+            status("Iniciando exportação de dados")
             save_data(
                 f"DLdados",
                 10,
@@ -121,6 +121,7 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
                 "Mpc",
             )
         elif type == "M":
+            status("Iniciando exportação de dados")
             save_data(
                 f"DLdadosM",
                 10,
@@ -174,6 +175,7 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
                 "Mpc",
             )
         elif type == "EE":
+            status("Iniciando exportação de dados")
             save_data(
                 f"DLdadosEE",
                 10,
@@ -226,14 +228,16 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
                 "dL",
                 "Mpc",
             )
+        elif type == "return":
+            status("Rotina principal finalizada!")
+            return [
+                dL(Omega_M, Omega_EE, resintlist[0], z),
+                mu(Omega_M, Omega_EE, resintlist[0], z),
+            ]
         status("Exportação de dados concluida com sucesso!")
         status("Rotina principal finalizada!")
     except Exception as e:
         status(f"Falha no processo de salvamento! Erro: {e}")
-    return [
-        dL(Omega_M, Omega_EE, resintlist[0], z),
-        mu(Omega_M, Omega_EE, resintlist[0], z),
-    ]
 
 
 # ? -----------------------------------------------------------------------------
