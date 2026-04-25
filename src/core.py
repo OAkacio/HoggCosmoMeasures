@@ -121,6 +121,7 @@ def UniType(Omega_k):
 
 
 def solution(Omega_M, Omega_EE, z, z_step):
+    """Função que calcula uma matriz de resultados de distância de luminosidade (dL), módulo de distância (mu), distância de luminosidade aproximada (dLAP) e diferença entre as duas (DIF) a partir do redshift (z) e dos parâmetros de densidade de matéria e energia escura em um passo (z_step)."""
     DLvectorX = []
     DLvectorY = []
     MUvectorX = []
