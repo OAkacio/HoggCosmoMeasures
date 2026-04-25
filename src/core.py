@@ -217,6 +217,11 @@ def quebra_degenerecencia(
     return matriz_total
 
 
-def veross():
-    ...
-    return None
+def veross(var2dPRIOR, chi2d_minPRIOR, omegaM_list, omegaEE_list):
+    L_matrix = np.exp(-(var2dPRIOR - chi2d_minPRIOR) / 2)
+    OM, OEE = np.meshgrid(omegaM_list, omegaEE_list, indexing='ij')
+    mask_acel = OEE > (OM / 2)
+    soma_total = np.sum(L_matrix)
+    soma_acelerada = np.sum(L_matrix[mask_acel])
+    prob_aceleracao = (soma_acelerada / soma_total)
+    return prob_aceleracao
