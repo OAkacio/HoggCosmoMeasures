@@ -153,3 +153,21 @@ chi2d_sigma3PRIOR = chi2d_minPRIOR + 11.83
 
 niveisPRIOR = [chi2d_sigma1PRIOR, chi2d_sigma2PRIOR, chi2d_sigma3PRIOR]
 elipse_plot(True, omegaM_list, omegaEE_list, var2dPRIOR, niveisPRIOR, "elipsePRIOR_var")
+
+status("Iniciando cálculo da probabilidade de aceleração")
+
+L_matrix = np.exp(-(var2dPRIOR - chi2d_minPRIOR) / 2)
+
+OM, OEE = np.meshgrid(omegaM_list, omegaEE_list, indexing='ij')
+
+mask_acel = OEE > (OM / 2)
+
+soma_total = np.sum(L_matrix)
+soma_acelerada = np.sum(L_matrix[mask_acel])
+
+prob_aceleracao = (soma_acelerada / soma_total) * 100
+
+param("Probabilidade de Aceleração (P_acel)", f"{prob_aceleracao:.6f}%")
+
+if prob_aceleracao > 99.7:
+    status("Resultado: Aceleração confirmada com significância superior a 3-sigma!")

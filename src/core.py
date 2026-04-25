@@ -215,3 +215,8 @@ def quebra_degenerecencia(
             chi2_cmb = ((ok_teo - omegaK_obs) ** 2) / (ERROomegaK_obs**2)
             matriz_total[i, j] = matriz_sn[i, j] + chi2_cmb
     return matriz_total
+
+
+def veross():
+    ...
+    return None
