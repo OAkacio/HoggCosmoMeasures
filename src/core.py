@@ -169,8 +169,16 @@ def malha_mu_teo(Omega_M, Omega_EE, z_list):
             mu(
                 Omega_M,
                 Omega_EE,
-                integracao(integral(z, Omega_M, Omega_EE), Omega_M, Omega_EE, z)[0],
+                integracao(integral, Omega_M, Omega_EE, z)[0],
                 z,
             )
         )
     return mu_teo_list
+
+
+def varredura_1D(omegaM_list, mu_obs_list, ERROmu_obs_list, z_list):
+    chi2_list = []
+    for om in omegaM_list:
+        oee = 1 - om
+        chi2_list.append(chi2(mu_obs_list, ERROmu_obs_list, malha_mu_teo(om, oee, z_list)))
+    return chi2_list

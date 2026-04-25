@@ -32,5 +32,5 @@ z_step = 10e-4  # Intervalo entre um ponto e outro nos dados
 # ?         INFERENCE
 # ? -----------------------------------------------------------------------------
 
-mesh_inter_M = [0, 1]  # Intervalo de análise [M_ini, M_fin]
+mesh_inter_omega = [0, 1]  # Intervalo de análise [omega_ini, omega_fin]
 meshgrid_step = 10e-3  # Intervalo entre um ponto e outro nos dados

@@ -10,5 +10,6 @@ from src.parameters import *
 obsdatalist = load_obs_data(
     "obs_data.txt"
 )  # carrega uma matriz com os vetores [z], [mu], [ERROmu]
-
-...
+z_list = obsdatalist[0]
+mu_obs_list = obsdatalist[1]
+ERROmu_obs_list = obsdatalist[2]
