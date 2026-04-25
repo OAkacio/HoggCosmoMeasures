@@ -192,3 +192,7 @@ else:
     acel = "não confirmada!"
 param("Probabilidade de Aceleração (P_acel)", prob_aceleracao)
 param("Aceleração do universo superior a 3-sigma", acel)
+
+# ? -----------------------------------------------------------------------------
+# ?         ...
+# ? -----------------------------------------------------------------------------
