@@ -9,6 +9,7 @@
 
 import numpy as np
 from scipy.integrate import quad
+from tqdm import tqdm
 
 # ? -----------------------------------------------------------------------------
 # ?         MÓDULOS LOCAIS
@@ -179,10 +180,10 @@ def malha_mu_teo(Omega_M, Omega_EE, z_list):
     return mu_teo_list
 
 
-def varredura_1D(omegaM_list, mu_obs_list, ERROmu_obs_list, z_list):
+def varredura_1D(omega_list, mu_obs_list, ERROmu_obs_list, z_list):
     """Função responsável por realizar uma varredura 1D (Universo Plano) para calcular o qui-quadrado para uma lista de módulos de distância (mu) observados (mu_obs_list), seus erros (ERROmu_obs_list) e os módulos de distância teoricos (mu_teo_list)."""
     chi2_list = []
-    for om in omegaM_list:
+    for om in tqdm(omega_list, desc="PROGRESSO"):
         oee = 1 - om
         chi2_list.append(
             chi2(mu_obs_list, ERROmu_obs_list, malha_mu_teo(om, oee, z_list))

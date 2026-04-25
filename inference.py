@@ -13,3 +13,15 @@ obsdatalist = load_obs_data(
 z_list = obsdatalist[0]
 mu_obs_list = obsdatalist[1]
 ERROmu_obs_list = obsdatalist[2]
+
+header("Inferência de dados")
+status("Iniciando a varredura 1D")
+
+omega_list=[]
+omega_var=mesh_inter_omega[0]
+
+while omega_var<mesh_inter_omega[1]:
+    omega_list.append(omega_var)
+    omega_var=omega_var+meshgrid_step
+
+varredura_1D(omega_list, mu_obs_list, ERROmu_obs_list, z_list)
