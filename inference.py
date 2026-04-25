@@ -1,5 +1,3 @@
-# entrada: dados_obs, mu(Omega_M, Omega_EE, resint, z),
-# saida: (omega_m_bestifit,omega_ee_bestifit), matriz chiquad, deltachiquad(contorno), probabilidades integradas
 
 from src.core import *
 from src.system import *
