@@ -6,6 +6,7 @@ from src.system import *
 from src.save_load import *
 from main import *
 from src.parameters import *
+from src.plot import *
 
 obsdatalist = load_obs_data("obs_data.txt")
 z_list = obsdatalist[0]
@@ -113,3 +114,14 @@ MINDchi2d_min,EEINDchi2d_min = np.unravel_index(np.argmin(var2d), var2d.shape)
 param("Qui-quadrado mínimo (2dchi2_min)", chi2d_min)
 param("Densidade de materia Bestfit (2dBF_Omega_M)", omegaM_list[MINDchi2d_min])
 param("Densidade de energia Bestfit (2dBF_Omega_EE)", omegaEE_list[EEINDchi2d_min])
+
+status("Iniciando cálculo de incertezas")
+chi2d_sigma1 = chi2d_min + 2.30
+chi2d_sigma2 = chi2d_min + 6.18
+chi2d_sigma3 = chi2d_min + 11.83
+
+niveis = [chi2d_sigma1, chi2d_sigma2, chi2d_sigma3]
+elipse_plot(True, omegaM_list, omegaEE_list, var2d, niveis, "elipse_var")
+
+status("Iniciando quebra de degenerescência: Aplicando Prior da CMB na malha 2D")
+
