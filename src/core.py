@@ -241,8 +241,9 @@ def veross2d(var2dPRIOR, chi2d_minPRIOR, omegaM_list, omegaEE_list, w):
 def varreduraOW(w_list, omegaM_list, mu_obs_list, ERROmu_obs_list, z_list):
     """Função responsável por gerar uma matriz de chi2 para cada combinação de omega_M e w para um universo plano."""
     matriz_chi2 = np.zeros((len(w_list), len(omegaM_list)))
-    for i, om in enumerate(tqdm(w_list, desc="PROGRESSO")):
-        for j, oee in enumerate(omegaM_list):
-            mu_teorico = malha_mu_teo()
+    for i, w in enumerate(tqdm(w_list, desc="PROGRESSO")):
+        for j, om in enumerate(omegaM_list):
+            oe = 1-om
+            mu_teorico = malha_mu_teo(om, oe, z_list, w)
             matriz_chi2[i, j] = chi2(mu_obs_list, ERROmu_obs_list, mu_teorico)
     return matriz_chi2

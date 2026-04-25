@@ -142,6 +142,9 @@ status("Iniciando cálculo de incertezas")
 chi2d_sigma1 = chi2d_min + 2.30
 chi2d_sigma2 = chi2d_min + 6.18
 chi2d_sigma3 = chi2d_min + 11.83
+param("Qui-quadrado 1_sigma (chi2_1_sigma)", chi2d_sigma1)
+param("Qui-quadrado 2_sigma (chi2_2_sigma)", chi2d_sigma2)
+param("Qui-quadrado 3_sigma (chi2_3_sigma)", chi2d_sigma3)
 niveis = [chi2d_sigma1, chi2d_sigma2, chi2d_sigma3]
 status("Iniciando criação de gráfico de distribuição qui-quadrado")
 elipse_plot(True, omegaM_list, omegaEE_list, var2d, niveis, "elipse_var")
@@ -203,4 +206,20 @@ w_var = mesh_inter_w[0]
 while w_var < mesh_inter_w[1]:
     w_list.append(w_var)
     w_var = w_var + meshgrid_step
-...
+var2dOW=varreduraOW(w_list, omegaM_list, mu_obs_list, ERROmu_obs_list, z_list)
+chi2dOW_min = np.min(var2dOW)
+WINDchi2dOW_min, MINDchi2dOW_min = np.unravel_index(np.argmin(var2dOW), var2dOW.shape)
+param("Qui-quadrado mínimo (2dchi2_min)", chi2dOW_min)
+param("Parâmetro da equação de estado Bestfit (2dBF_w)", w_list[WINDchi2dOW_min])
+param("Densidade de matéria Bestfit (2dBF_Omega_M)", omegaM_list[MINDchi2dOW_min])
+status("Iniciando cálculo de incertezas")
+chi2dOW_sigma1 = chi2dOW_min + 2.30
+chi2dOW_sigma2 = chi2dOW_min + 6.18
+chi2dOW_sigma3 = chi2dOW_min + 11.83
+param("Qui-quadrado 1_sigma (chi2_1_sigma)", chi2dOW_sigma1)
+param("Qui-quadrado 2_sigma (chi2_2_sigma)", chi2dOW_sigma2)
+param("Qui-quadrado 3_sigma (chi2_3_sigma)", chi2dOW_sigma3)
+niveis = [chi2dOW_sigma1, chi2dOW_sigma2, chi2dOW_sigma3]
+status("Iniciando criação de gráfico de distribuição qui-quadrado")
+elipse_plot(True, w_list, omegaM_list, var2dOW, niveis, "elipse_varOW", r"$w$",r"$\Omega_M$")
+status("Criação de gráficos finalizada!")
