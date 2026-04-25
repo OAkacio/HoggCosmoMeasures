@@ -118,3 +118,35 @@ def UniType(Omega_k):
         return "Universo Fechado"
     else:
         return "Universo Plano"
+
+
+def solution(Omega_M, Omega_EE, z, z_step):
+    DLvectorX = []
+    DLvectorY = []
+    MUvectorX = []
+    MUvectorY = []
+    DLAPvectorX = []
+    DLAPvectorY = []
+    DIFvectorX = []
+    DIFvectorY = []
+    for i in np.arange(float(z_step), float(z) + float(z_step), float(z_step)):
+        iresint = integracao(integral, Omega_M, Omega_EE, i)
+        DLvectorX.append(i)
+        DLvectorY.append(dL(Omega_M, Omega_EE, iresint[0], i))
+        MUvectorX.append(i)
+        MUvectorY.append(mu(Omega_M, Omega_EE, iresint[0], i))
+        DLAPvectorX.append(i)
+        DLAPvectorY.append(approx_dL(Omega_M, Omega_EE, i))
+        if i <= 1:
+            DIFvectorX.append(i)
+            DIFvectorY.append(DLvectorY[-1] - DLAPvectorY[-1])
+    return [
+        DLvectorX,
+        DLvectorY,
+        MUvectorX,
+        MUvectorY,
+        DLAPvectorX,
+        DLAPvectorY,
+        DIFvectorX,
+        DIFvectorY,
+    ]

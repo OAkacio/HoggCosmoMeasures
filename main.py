@@ -48,25 +48,15 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
     param("Parâmetro de desaceleração (q0)", q0(Omega_M, Omega_EE, w))
     status("Iniciando exportação de dados")
     try:
-        DLvectorX = []
-        DLvectorY = []
-        MUvectorX = []
-        MUvectorY = []
-        DLAPvectorX = []
-        DLAPvectorY = []
-        DIFvectorX = []
-        DIFvectorY = []
-        for i in np.arange(float(z_step), float(z) + float(z_step), float(z_step)):
-            iresint = integracao(integral, Omega_M, Omega_EE, i)
-            DLvectorX.append(i)
-            DLvectorY.append(dL(Omega_M, Omega_EE, iresint[0], i))
-            MUvectorX.append(i)
-            MUvectorY.append(mu(Omega_M, Omega_EE, iresint[0], i))
-            DLAPvectorX.append(i)
-            DLAPvectorY.append(approx_dL(Omega_M, Omega_EE, i))
-            if i <= 1:
-                DIFvectorX.append(i)
-                DIFvectorY.append(DLvectorY[-1] - DLAPvectorY[-1])
+        sollist = solution(Omega_M, Omega_EE, z, z_step)
+        DLvectorX = sollist[0]
+        DLvectorY = sollist[1]
+        MUvectorX = sollist[2]
+        MUvectorY = sollist[3]
+        DLAPvectorX = sollist[4]
+        DLAPvectorY = sollist[5]
+        DIFvectorX = sollist[6]
+        DIFvectorY = sollist[7]
         if type == "custom":
             save_data(
                 f"DLdados",
