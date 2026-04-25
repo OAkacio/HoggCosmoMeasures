@@ -8,7 +8,6 @@
 # ? -----------------------------------------------------------------------------
 
 import numpy as np
-from scipy.integrate import quad
 
 # ? -----------------------------------------------------------------------------
 # ?         MÓDULOS LOCAIS
@@ -35,19 +34,17 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
         "iniciando HoggCosmoMeasures...", Omega_M=Omega_M, Omega_EE=Omega_EE, w=w, z=z
     )
     try:
-        IntANDError = quad(integral, 0, z, args=(Omega_M, Omega_EE))
-        resint = IntANDError[0]
-        ERRORresint = IntANDError[1]
+        resintlist=integracao(integral,Omega_M,  Omega_EE, z)
         status("Processo de integração numérica finalizado com sucesso!")
-        param("Integração Numérica", resint, "Mpc")
-        param("Erro Estimado", ERRORresint, "Mpc")
+        param("Integração Numérica", resintlist[0], "Mpc")
+        param("Erro Estimado", resintlist[1], "Mpc")
     except Exception as e:
         status(f"Processo de integração numérica falhou! Erro: {e}")
     status("Iniciando cálculo de parâmetros do universo")
     param("Tipo de universo", UniType(Omega_K(Omega_M, Omega_EE)))
     param("Constante de curvatura espacial (k)", k(Omega_M, Omega_EE))
     param("Parâmetro derivado de curvatura (Omega_K)", Omega_K(Omega_M, Omega_EE))
-    param("Distância comóvel radial (dC)", dC(resint), "Mpc")
+    param("Distância comóvel radial (dC)", dC(resintlist[0]), "Mpc")
     param("Parâmetro de desaceleração (q0)", q0(Omega_M, Omega_EE, w))
     status("Iniciando exportação de dados")
     try:
@@ -60,11 +57,11 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
         DIFvectorX = []
         DIFvectorY = []
         for i in np.arange(float(z_step), float(z) + float(z_step), float(z_step)):
-            resint = quad(integral, 0, i, args=(Omega_M, Omega_EE))[0]
+            iresint = integracao(integral, Omega_M, Omega_EE, i)
             DLvectorX.append(i)
-            DLvectorY.append(dL(Omega_M, Omega_EE, resint, i))
+            DLvectorY.append(dL(Omega_M, Omega_EE, iresint[0], i))
             MUvectorX.append(i)
-            MUvectorY.append(mu(Omega_M, Omega_EE, resint, i))
+            MUvectorY.append(mu(Omega_M, Omega_EE, iresint[0], i))
             DLAPvectorX.append(i)
             DLAPvectorY.append(approx_dL(Omega_M, Omega_EE, i))
             if i <= 1:

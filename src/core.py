@@ -8,6 +8,7 @@
 # ? -----------------------------------------------------------------------------
 
 import numpy as np
+from scipy.integrate import quad
 
 # ? -----------------------------------------------------------------------------
 # ?         MÓDULOS LOCAIS
@@ -100,6 +101,12 @@ def k(Omega_M, Omega_EE):
 def integral(z, Omega_M, Omega_EE):
     """Formaliza a quantidade a ser integrada para o cálculo da distância comóvel radial (dC) a partir do redshift (z) e dos parâmetros de densidade de matéria e energia escura."""
     return 1 / E(z, Omega_M, Omega_EE)
+
+def integracao(integral, Omega_M, Omega_EE, z):
+    IntANDError = quad(integral, 0, z, args=(Omega_M, Omega_EE))
+    resint = IntANDError[0]
+    ERRORresint = IntANDError[1]
+    return [resint, ERRORresint]
 
 
 def UniType(Omega_k):
