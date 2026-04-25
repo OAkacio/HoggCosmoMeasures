@@ -33,6 +33,7 @@ z_step = 10e-4  # Intervalo entre um ponto e outro nos dados
 # ? -----------------------------------------------------------------------------
 
 mesh_inter_omega = [0, 1]  # Intervalo de análise [omega_ini, omega_fin]
+mesh_inter_w = [-2, 2]  # Intervalo de análise [w_ini, w_fin]
 meshgrid_step = 10e-3  # Intervalo entre um ponto e outro nos dados
 Omega_K_obs = -0.06  # Parâmetro de Densidade da Curvatura observado
 ERROOmega_K_obs = 0.05  # Erro do Parâmetro de Densidade da Curvatura observado

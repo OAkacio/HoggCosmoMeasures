@@ -34,7 +34,7 @@ omega_var = mesh_inter_omega[0]
 while omega_var < mesh_inter_omega[1]:
     omega_list.append(omega_var)
     omega_var = omega_var + meshgrid_step
-var1d = varredura_1D(omega_list, mu_obs_list, ERROmu_obs_list, z_list)
+var1d = varredura_1D(omega_list, mu_obs_list, ERROmu_obs_list, z_list, w)
 status("Varredura 1D finalizada com sucesso!")
 chi_min = np.min(var1d[0])
 INDchi_min = np.argmin(var1d[0])
@@ -112,7 +112,7 @@ status("Criação de gráficos finalizada!")
 # ? -----------------------------------------------------------------------------
 
 status("Iniciando cálculo da probabilidade de Omega_EE > 0.5")
-prob_ee = veross1d(var1d[0],chi_min, var1d[2])
+prob_ee = veross1d(var1d[0], chi_min, var1d[2])
 if prob_ee > 0.5:
     ee1d = "confirmada!"
 else:
@@ -131,7 +131,7 @@ while omegaM_var < mesh_inter_omega[1]:
     omegaM_list.append(omegaM_var)
     omegaM_var = omegaM_var + meshgrid_step
 omegaEE_list = omegaM_list
-var2d = varredura_2D(omegaM_list, omegaEE_list, mu_obs_list, ERROmu_obs_list, z_list)
+var2d = varredura_2D(omegaM_list, omegaEE_list, mu_obs_list, ERROmu_obs_list, z_list, w)
 status("Varredura 2D finalizada com sucesso!")
 chi2d_min = np.min(var2d)
 MINDchi2d_min, EEINDchi2d_min = np.unravel_index(np.argmin(var2d), var2d.shape)
@@ -185,7 +185,7 @@ status("Criação de gráficos finalizada!")
 # ? -----------------------------------------------------------------------------
 
 status("Iniciando cálculo da probabilidade de aceleração")
-prob_aceleracao = veross2d(var2dPRIOR, chi2d_minPRIOR, omegaM_list, omegaEE_list)
+prob_aceleracao = veross2d(var2dPRIOR, chi2d_minPRIOR, omegaM_list, omegaEE_list, w)
 if prob_aceleracao > 0.997:
     acel = "confirmada!"
 else:
@@ -194,5 +194,13 @@ param("Probabilidade de Aceleração (P_acel)", prob_aceleracao)
 param("Aceleração do universo superior a 3-sigma", acel)
 
 # ? -----------------------------------------------------------------------------
-# ?         ...
+# ?         VARREDURA BIDIMENSIONAL - OMEGA_M VS W
 # ? -----------------------------------------------------------------------------
+
+status("Iniciando varredura bidimensional (OMEGA_M vs W)")
+w_list = []
+w_var = mesh_inter_w[0]
+while w_var < mesh_inter_w[1]:
+    w_list.append(w_var)
+    w_var = w_var + meshgrid_step
+...

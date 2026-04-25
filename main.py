@@ -36,7 +36,7 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="return"):
 
     try:
         status("Iniciando processo de integração numérica para parâmetros pontuais")
-        resintlist = integracao(integral, Omega_M, Omega_EE, z)
+        resintlist = integracao(integral, Omega_M, Omega_EE, z, w)
         status(
             "Processo de integração numérica para parâmetros pontuais finalizado com sucesso!"
         )
@@ -67,7 +67,7 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="return"):
 
     try:
         status("Iniciando integração por todo o intervalo de redshift")
-        sollist = solution(Omega_M, Omega_EE, z, z_step)
+        sollist = solution(Omega_M, Omega_EE, z, z_step, w)
         DLvectorX = sollist[0]
         DLvectorY = sollist[1]
         MUvectorX = sollist[2]
