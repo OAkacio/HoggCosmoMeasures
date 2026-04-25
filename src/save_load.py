@@ -62,9 +62,24 @@ def load_data(caminho_arquivo):
     try:
         vetor_x, vetor_y = np.loadtxt(caminho_arquivo, delimiter=",", unpack=True)
         return vetor_x, vetor_y
-    except FileNotFoundError:  # Except apra caso o caminho não seja encontrado
+    except FileNotFoundError:
         print(f"Erro: O arquivo '{caminho_arquivo}' não foi encontrado.")
         return [], []
-    except Exception as e:  # Except para outros casos de falha
+    except Exception as e:
+        print(f"Erro ao ler o arquivo: {e}")
+        return [], []
+    
+def load_obs_data(caminho_arquivo):
+    """
+    Lê um arquivo .txt não formatado e separado por espaços.
+    Retorna três vetores (vetor X, vetor Y, vetor Z).
+    """
+    try:
+        vetor_x, vetor_y, vetor_z = np.loadtxt(caminho_arquivo, delimiter=" ", unpack=True)
+        return vetor_x, vetor_y, vetor_z
+    except FileNotFoundError:
+        print(f"Erro: O arquivo '{caminho_arquivo}' não foi encontrado.")
+        return [], []
+    except Exception as e:
         print(f"Erro ao ler o arquivo: {e}")
         return [], []
