@@ -191,19 +191,11 @@ def varredura_1D(omega_list, mu_obs_list, ERROmu_obs_list, z_list):
     return [chi2_list, omega_list, 1 - np.array(omega_list)]
 
 
-def varredura_2D(
-    omega_list, mu_obs_list, ERROmu_obs_list, z_list
-):  # Ainda não está pronta!
-    omegaM_list = omega_list
-    omegaEE_list = omega_list
-    chi2_list = []
-    for om in omegaM_list:
-        for oee in omegaEE_list:
-            chi2_list.append(
-                chi2(
-                    mu_obs_list,
-                    ERROmu_obs_list,
-                    malha_mu_teo(om, oee, z_list),
-                )
-            )
-    return chi2_list
+def varredura_2D(omegaM_list, omegaEE_list, mu_obs_list, ERROmu_obs_list, z_list):
+    """Função responsável por realizar uma varredura 2D (Universo com Curvatura Livre) para calcular o qui-quadrado para uma lista de módulos de distância (mu) observados (mu_obs_list), seus erros (ERROmu_obs_list) e os módulos de distância teoricos (mu_teo_list)."""
+    matriz_chi2 = np.zeros((len(omegaM_list), len(omegaEE_list)))
+    for i, om in enumerate(tqdm(omegaM_list, desc="VARREDURA 2D")):
+        for j, oee in enumerate(omegaEE_list):
+            mu_teorico = malha_mu_teo(om, oee, z_list)
+            matriz_chi2[i, j] = chi2(mu_obs_list, ERROmu_obs_list, mu_teorico)
+    return matriz_chi2
