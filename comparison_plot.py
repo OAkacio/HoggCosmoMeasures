@@ -17,6 +17,10 @@ from src.system import *
 # * ROTINA PRINCIPAL
 # * =============================================================================
 
+# ? -----------------------------------------------------------------------------
+# ?         GERANDO DADOS DOS UNIVERSOS ANALISADOS
+# ? -----------------------------------------------------------------------------
+
 try:
     header("Iniciando comparison plot...")
     status("Iniciando 1a análise")
@@ -31,6 +35,10 @@ try:
     status("Todas as análises terminadas!")
 except Exception as e:
     status(f"Um erro foi encontrado ao tentar executar a rotina principal. Erro: {e}")
+
+# ? -----------------------------------------------------------------------------
+# ?         GERANDO GRÁFICOS PARA DISTÂNCIA DE LUMINOSIDADE
+# ? -----------------------------------------------------------------------------
 
 try:
     status("Iniciando criação de gráficos de Distância de Luminosidade")
@@ -64,6 +72,10 @@ except Exception as e:
     status(
         f"Um erro foi encontrado ao tentar fazer a sobreposição dos gráficos de Distância de luminosidade. Erro: {e}"
     )
+
+# ? -----------------------------------------------------------------------------
+# ?         GERANDO GRÁFICOS PARA MÓDULO DE DISTÂNCIA
+# ? -----------------------------------------------------------------------------
 
 try:
     dadosM = "MUdadosM.txt"

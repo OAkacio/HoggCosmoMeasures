@@ -18,6 +18,10 @@ from src.constants import *
 
 header("Iniciando basic plots...")
 
+# ? -----------------------------------------------------------------------------
+# ?         CARREGANDO DADOS DO UNIVERSO SIMULADO
+# ? -----------------------------------------------------------------------------
+
 try:
     DLvectorX = load_data(f"data/DLdados.txt")[0]
     DLAPvectorX = load_data(f"data/DLAPdados.txt")[0]
@@ -27,6 +31,11 @@ try:
     DLAPvectorY = load_data(f"data/DLAPdados.txt")[1]
     DIFvectorY = load_data(f"data/DIFdados.txt")[1]
     MUvectorY = load_data(f"data/MUdados.txt")[1]
+
+    # ? -----------------------------------------------------------------------------
+    # ?         GERANDO GRÁFICOS DE PARÂMETROS
+    # ? -----------------------------------------------------------------------------
+
     plot(
         True,
         DLvectorX,

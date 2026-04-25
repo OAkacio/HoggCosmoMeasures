@@ -60,6 +60,11 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="return"):
     param("Parâmetro derivado de curvatura (Omega_K)", Omega_K(Omega_M, Omega_EE))
     param("Distância comóvel radial (dC)", dC(resintlist[0]), "Mpc")
     param("Parâmetro de desaceleração (q0)", q0(Omega_M, Omega_EE, w))
+
+    # ? -----------------------------------------------------------------------------
+    # ?         CÁLCULO DE PARÂMETROS PARA TODO O INTERVALO
+    # ? -----------------------------------------------------------------------------
+
     try:
         status("Iniciando integração por todo o intervalo de redshift")
         sollist = solution(Omega_M, Omega_EE, z, z_step)
@@ -72,6 +77,11 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="return"):
         DIFvectorX = sollist[6]
         DIFvectorY = sollist[7]
         status("Integração por todo o intervalo de redshift finalizada com sucesso!")
+
+        # ? -----------------------------------------------------------------------------
+        # ?         EXPORTAÇÃO DE DADOS
+        # ? -----------------------------------------------------------------------------
+
         if type == "custom":
             status("Iniciando exportação de dados")
             save_data(
