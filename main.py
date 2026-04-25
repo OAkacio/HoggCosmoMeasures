@@ -38,6 +38,16 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
         status("Processo de integração numérica finalizado com sucesso!")
         param("Integração Numérica", resintlist[0], "Mpc")
         param("Erro Estimado", resintlist[1], "Mpc")
+        param(
+            "Distância de Luminosidade para 'z' (dL(z))",
+            dL(Omega_M, Omega_EE, resintlist[0], z),
+            "Mpc",
+        )
+        param(
+            "Módulo de Distância para 'z' (mu(z))",
+            mu(Omega_M, Omega_EE, resintlist[0], z),
+            "mag",
+        )
     except Exception as e:
         status(f"Processo de integração numérica falhou! Erro: {e}")
     status("Iniciando cálculo de parâmetros do universo")
