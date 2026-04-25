@@ -96,4 +96,13 @@ param(
 status("Cálculo de incertezas finalizado!")
 status("Iniciando a varredura 2D")
 
-...
+omegaM_list = []
+omegaM_var = mesh_inter_omega[0]
+
+while omegaM_var < mesh_inter_omega[1]:
+    omegaM_list.append(omegaM_var)
+    omegaM_var = omegaM_var + meshgrid_step
+
+omegaEE_list = omegaM_list
+
+var2d=varredura_2D(omegaM_list, omegaEE_list, mu_obs_list, ERROmu_obs_list, z_list)
