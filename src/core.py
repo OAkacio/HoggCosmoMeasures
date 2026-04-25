@@ -243,7 +243,7 @@ def varreduraOW(w_list, omegaM_list, mu_obs_list, ERROmu_obs_list, z_list):
     matriz_chi2 = np.zeros((len(w_list), len(omegaM_list)))
     for i, w in enumerate(tqdm(w_list, desc="PROGRESSO")):
         for j, om in enumerate(omegaM_list):
-            oe = 1-om
+            oe = 1 - om
             mu_teorico = malha_mu_teo(om, oe, z_list, w)
             matriz_chi2[i, j] = chi2(mu_obs_list, ERROmu_obs_list, mu_teorico)
     return matriz_chi2
