@@ -159,11 +159,13 @@ def solution(Omega_M, Omega_EE, z, z_step):
 
 
 def chi2(mu_obs_list, ERROmu_obs_list, mu_teo_list):
+    """Função responsável por calcular o qui-quadrado para uma lista de módulos de distância (mu) observados (mu_obs_list), seus erros (ERROmu_obs_list) e os módulos de distância teoricos (mu_teo_list)."""
     x = (mu_obs_list - mu_teo_list) / (ERROmu_obs_list)
     return np.sum(x**2)
 
 
 def malha_mu_teo(Omega_M, Omega_EE, z_list):
+    """Função responsável por calcular uma lista de módulos de distância (mu) teoricos para uma lista de redshifts (z_list)."""
     mu_teo_list = []
     for z in z_list:
         mu_teo_list.append(
@@ -178,6 +180,7 @@ def malha_mu_teo(Omega_M, Omega_EE, z_list):
 
 
 def varredura_1D(omegaM_list, mu_obs_list, ERROmu_obs_list, z_list):
+    """Função responsável por realizar uma varredura 1D (Universo Plano) para calcular o qui-quadrado para uma lista de módulos de distância (mu) observados (mu_obs_list), seus erros (ERROmu_obs_list) e os módulos de distância teoricos (mu_teo_list)."""
     chi2_list = []
     for om in omegaM_list:
         oee = 1 - om
