@@ -235,6 +235,7 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
         status("Rotina principal finalizada!")
     except Exception as e:
         status(f"Falha no processo de salvamento! Erro: {e}")
+    return None
 
 
 # ? -----------------------------------------------------------------------------
