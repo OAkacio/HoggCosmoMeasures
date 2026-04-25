@@ -199,3 +199,19 @@ def varredura_2D(omegaM_list, omegaEE_list, mu_obs_list, ERROmu_obs_list, z_list
             mu_teorico = malha_mu_teo(om, oee, z_list)
             matriz_chi2[i, j] = chi2(mu_obs_list, ERROmu_obs_list, mu_teorico)
     return matriz_chi2
+
+
+def quebra_degenerecencia(
+    omegaM_list, omegaEE_list, matriz_sn, omegaK_obs, ERROomegaK_obs
+):
+    """
+    Aplica o Prior da CMB sobre a matriz de Chi2 das Supernovas.
+    ok_obs e sigma_ok devem seguir o roteiro do IAG (geralmente Planck).
+    """
+    matriz_total = np.zeros_like(matriz_sn)
+    for i, om in enumerate(omegaM_list):
+        for j, oee in enumerate(omegaEE_list):
+            ok_teo = 1 - (om + oee)
+            chi2_cmb = ((ok_teo - omegaK_obs) ** 2) / (ERROomegaK_obs**2)
+            matriz_total[i, j] = matriz_sn[i, j] + chi2_cmb
+    return matriz_total
