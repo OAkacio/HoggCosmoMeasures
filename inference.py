@@ -104,7 +104,7 @@ param(
 )
 status("Cálculo de incertezas finalizado!")
 status("Iniciando criação de gráfico de distribuição qui-quadrado")
-plot(True, var1d[1], var1d[0],"distQuiQuad", r"$\Omega_M$", r"$\chi^2$")
+plot(True, var1d[1], var1d[0], "distQuiQuad", r"$\Omega_M$", r"$\chi^2$")
 status("Criação de gráficos finalizada!")
 
 # ? -----------------------------------------------------------------------------
