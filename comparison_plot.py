@@ -40,7 +40,7 @@ try:
     x1 = load_data(f"data/DLdadosM.txt")[0]
     x2 = load_data(f"data/DLdadosEE.txt")[0]
     x3 = load_data(f"data/DLdados.txt")[0]
-    y1 = load_data(f"data/DLdadosM.txt")[1] / (c / H0)
+    y1 = load_data(f"data/DLFdadosM.txt")[1] / (c / H0)
     y2 = load_data(f"data/DLdadosEE.txt")[1] / (c / H0)
     y3 = load_data(f"data/DLdados.txt")[1] / (c / H0)
     ppplot(

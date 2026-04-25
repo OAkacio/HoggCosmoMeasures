@@ -34,7 +34,7 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="custom"):
         "iniciando HoggCosmoMeasures...", Omega_M=Omega_M, Omega_EE=Omega_EE, w=w, z=z
     )
     try:
-        resintlist=integracao(integral,Omega_M,  Omega_EE, z)
+        resintlist = integracao(integral, Omega_M, Omega_EE, z)
         status("Processo de integração numérica finalizado com sucesso!")
         param("Integração Numérica", resintlist[0], "Mpc")
         param("Erro Estimado", resintlist[1], "Mpc")
