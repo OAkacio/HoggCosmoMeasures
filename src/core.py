@@ -160,3 +160,17 @@ def solution(Omega_M, Omega_EE, z, z_step):
 def chi2(mu_obs_list, ERROmu_obs_list, mu_teo_list):
     x = (mu_obs_list - mu_teo_list) / (ERROmu_obs_list)
     return np.sum(x**2)
+
+
+def malha_mu_teo(Omega_M, Omega_EE, z_list):
+    mu_teo_list = []
+    for z in z_list:
+        mu_teo_list.append(
+            mu(
+                Omega_M,
+                Omega_EE,
+                integracao(integral(z, Omega_M, Omega_EE), Omega_M, Omega_EE, z)[0],
+                z,
+            )
+        )
+    return mu_teo_list
