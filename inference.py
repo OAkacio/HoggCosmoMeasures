@@ -95,4 +95,5 @@ param(
 )
 status("Cálculo de incertezas finalizado!")
 status("Iniciando a varredura 2D")
+
 ...
