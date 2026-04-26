@@ -175,7 +175,7 @@ param("Qui-quadrado 3_sigma (chi2_3_sigma)", chi2dOW_sigma3)
 niveis = [chi2dOW_sigma1, chi2dOW_sigma2, chi2dOW_sigma3]
 status("Iniciando criação de gráfico de distribuição qui-quadrado")
 elipse_plot(
-    True, w_list, omegaM_list, var2dOW, niveis, "elipse_varOW", r"$w$", r"$\Omega_M$"
+    True, w_list, omegaM_list, var2dOW, niveis, "elipse_varOW", r"$w$", r"$\Omega_M$", uniplan=False
 )
 
 status("EXECUÇÃO FINALIZADA!")

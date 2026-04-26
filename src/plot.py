@@ -166,6 +166,7 @@ def elipse_plot(
     titulo_x=r"$\Omega_M$",
     titulo_y=r"$\Omega_{EE}$",
     tam_fonte=14,
+    uniplan=True
 ):
     """
     Função para plotar contornos de confiança (elipses) no estilo padrão LaTeX.
@@ -194,13 +195,14 @@ def elipse_plot(
     fmt = {levels[0]: r"1$\sigma$", levels[1]: r"2$\sigma$", levels[2]: r"3$\sigma$"}
     ax.clabel(contorno, inline=True, fontsize=tam_fonte - 4, fmt=fmt)
     x_plano = np.linspace(min(x_list), max(x_list), 100)
-    ax.plot(
-        x_plano,
-        1 - x_plano,
-        color="black",
-        linestyle="--",
-        alpha=0.6,
-        label="Universo Plano",
+    if uniplan == True:
+        ax.plot(
+            x_plano,
+            1 - x_plano,
+            color="black",
+            linestyle="--",
+            alpha=0.6,
+            label="Universo Plano",
     )
     ax.set_xlabel(titulo_x, labelpad=8)
     ax.set_ylabel(titulo_y, labelpad=8)

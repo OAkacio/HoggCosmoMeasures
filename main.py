@@ -25,7 +25,7 @@ from src.system import *
 # * =============================================================================
 
 
-def main(Omega_M, Omega_EE, w, z, z_step=z_step, type="return"):
+def main(Omega_M, Omega_EE, w, z, type="return"):
     header(
         "iniciando HoggCosmoMeasures...", Omega_M=Omega_M, Omega_EE=Omega_EE, w=w, z=z
     )
@@ -257,4 +257,4 @@ def main(Omega_M, Omega_EE, w, z, z_step=z_step, type="return"):
 
 
 if __name__ == "__main__":
-    main(Omega_M, Omega_EE, w, z, z_step, type="custom")
+    main(Omega_M, Omega_EE, w, z, type="custom")
