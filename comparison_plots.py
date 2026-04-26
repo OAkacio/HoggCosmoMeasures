@@ -59,9 +59,9 @@ try:
         y2,
         x3,
         y3,
-        r"Only-matter $\Omega_m=1.0, \Omega_\Lambda=0.0$",
-        r"Only-lambda $\Omega_m=0.0, \Omega_\Lambda=1.0$",
-        rf"Universo analisado $\Omega_m={Omega_M}, \Omega_\Lambda={Omega_EE}$",
+        r"Matter-only $(\Omega_m=1.0, \Omega_\Lambda=0.0)$",
+        r"$\Lambda$-only $(\Omega_m=0.0, \Omega_\Lambda=1.0)$",
+        rf"Universo Simulado $(\Omega_m={Omega_M}, \Omega_\Lambda={Omega_EE})$",
         "Comparação de Distâncias de Luminosidade",
         "z",
         r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",
@@ -94,9 +94,9 @@ try:
         y2,
         x3,
         y3,
-        r"Only-matter $\Omega_m=1.0, \Omega_\Lambda=0.0$",
-        r"Only-lambda $\Omega_m=0.0, \Omega_\Lambda=1.0$",
-        rf"Universo analisado $\Omega_m={Omega_M}, \Omega_\Lambda={Omega_EE}$",
+        r"Matter-only $(\Omega_m=1.0, \Omega_\Lambda=0.0)$",
+        r"$\Lambda$-only $(\Omega_m=0.0, \Omega_\Lambda=1.0)$",
+        rf"Universo Simulado $(\Omega_m={Omega_M}, \Omega_\Lambda={Omega_EE})$",
         "Comparação de Módulos e Distância",
         "z",
         r"$\mu$ (mag)",
@@ -104,6 +104,35 @@ try:
 except Exception as e:
     status(
         f"Um erro foi encontrado ao tentar fazer a sobreposição dos gráficos de Módulo de Distância. Erro: {e}"
+    )
+try:
+    dadosM = "DLAPdadosM.txt"
+    dadosEE = "DLAPdadosEE.txt"
+    dadosMEE = "DLAPdados.txt"
+    x1 = load_data(f"data/DLAPdadosM.txt")[0]
+    x2 = load_data(f"data/DLAPdadosEE.txt")[0]
+    x3 = load_data(f"data/DLAPdados.txt")[0]
+    y1 = load_data(f"data/DLAPdadosM.txt")[1]
+    y2 = load_data(f"data/DLAPdadosEE.txt")[1]
+    y3 = load_data(f"data/DLAPdados.txt")[1]
+    ppplot(
+        True,
+        x1,
+        y1,
+        x2,
+        y2,
+        x3,
+        y3,
+        r"Matter-only $(\Omega_m=1.0, \Omega_\Lambda=0.0)$",
+        r"$\Lambda$-only $(\Omega_m=0.0, \Omega_\Lambda=1.0)$",
+        rf"Universo Simulado $(\Omega_m={Omega_M}, \Omega_\Lambda={Omega_EE})$",
+        "Comparação de Distâncias de Luminosidade Aproximada",
+        "z",
+        r"$\mu$ (mag)",
+    )
+except:
+    status(
+        f"Um erro foi encontrado ao tentar fazer a sobreposição dos gráficos de Distância de luminosidade Aproximada. Erro: {e}"
     )
 
 status("EXECUÇÃO FINALIZADA!")
