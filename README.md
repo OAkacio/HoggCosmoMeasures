@@ -95,7 +95,7 @@ $$\mu = 5 \log_{10}\left(D_L\right) + 25$$
 
 $$\chi^2 = \sum_{i} \frac{[\mu_{obs}(z_i) - \mu_{teo}(z_i, \Omega_M, \Omega_{EE}, w)]^2}{\sigma_{\mu_i}^2}$$
 
-Os intervalos de confiança são construídos assumindo que a densidade de probabilidade distribui-se como $P \propto \exp(-\chi^2/2)$. O conjunto de análise também suporta quebra de degenerescência adicionando termos de *prior*, como o limite da Radiação Cósmica de Fundo (CMB)[cite: 63].
+Os intervalos de confiança são construídos assumindo que a densidade de probabilidade distribui-se como $P \propto \exp(-\chi^2/2)$. O conjunto de análise também suporta quebra de degenerescência adicionando termos de *prior*, como o limite da Radiação Cósmica de Fundo (CMB).
 
 ## Estrutura do Projeto:
 
