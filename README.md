@@ -1,131 +1,128 @@
-# ***HoggCosmoMeasures***
+# HoggCosmoMeasures
 
 ![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-This repository contains a numerical integrator developed in Python for calculating the Luminosity Distance ($d_L$) within Hogg's framework and Friedmann-Lemaître-Robertson-Walker (FLRW) cosmological models. The code enables the superposition and comparison of various universe models (Matter-dominated, Dark Energy-dominated, and Benchmark).
+Este repositório contém um integrador numérico desenvolvido em Python para o cálculo da Distância de Luminosidade ($d_L$) dentro do formalismo de Hogg e modelos cosmológicos de Friedmann-Lemaître-Robertson-Walker (FLRW). Além disso, o projeto inclui um conjunto de ferramentas completas de inferência estatística, permitindo não só a superposição de universos teóricos, mas também o ajuste de parâmetros cosmológicos a partir de dados observacionais de Supernovas do Tipo Ia (SNe Ia).
 
-## Authorship
+## Autoria
 
 **Victor Moreira Acacio**
 
-Institute of Astronomy, Geophysics and Atmospheric Sciences of the University of São Paulo
+Instituto de Astronomia, Geofísica e Ciências Atmosféricas da Universidade de São Paulo (IAG-USP)
 
 GitHub: [@OAkacio](https://github.com/OAkacio)
 
 ORCID: [0009-0007-4484-2129](https://orcid.org/0009-0007-4484-2129)
 
-## Installation
+## Instalação
 
-Clone this repository and install the dependencies by running the following commands in your terminal:
+Clone este repositório e instale as dependências executando os seguintes comandos no seu terminal:
 
 ```bash
-git clone [https://github.com/OAkacio/flrw-luminosity-distance-integrator.git](https://github.com/OAkacio/flrw-luminosity-distance-integrator.git)
+git clone https://github.com/OAkacio/flrw-luminosity-distance-integrator.git
 cd flrw-luminosity-distance-integrator
 pip install -r requirements.txt
 ```
 
-## Usage
+## Uso
 
-The codebase is highly modular. You can adjust inputs, run core integrations, and generate specific plots using dedicated scripts.
+O código foi projetado de forma modular. Você pode ajustar os parâmetros de entrada, realizar integrações pontuais, executar varreduras estatísticas e gerar gráficos de alta qualidade através de scripts específicos.
 
-**1. Configure Parameters** 
+Um Jupyter Notebook dentro dos arquivos foi projetado para facilitar o uso de códigos de forma independente.
 
-Before running the integrator, define your custom cosmological parameters ($\Omega_m$, $\Omega_{EE}$, $w$, and maximum redshift $z$) in src/parameters.py. Physical constants and the integration step can be modified in src/constants.py.
+**1. Configuração de Parâmetros:** Antes de executar o integrador ou a análise, defina seus parâmetros cosmológicos ($\Omega_m$, $\Omega_{EE}$, $w$, $z$ e o _prior da CMB_) em _src/parameters.py_. Constantes físicas podem ser modificadas em _src/constants.py_.
 
-**2. Generate Data (Single Model)** 
-
-To run the full numerical integration routine for your custom model and export the results to .txt files inside the data/ directory, execute:
+**2. Geração de Dados Teóricos (Modelo Único):** Para rodar a rotina de integração numérica do seu modelo customizado e exportar os resultados em arquivos _.txt_ na pasta _data/_, execute:
 
 ```bash
 python main.py
 ```
 
-**3. Plot Basic Graphs**
-
-Once the data is generated, you can plot the individual curves for Luminosity Distance, Distance Modulus, and Approximation Errors for your custom model by running:
+**3. Gráficos Básicos e Analíticos:** Com os dados numéricos gerados, plote as curvas individuais para a Distância de Luminosidade, Módulo de Distância e o Erro de Aproximação (Exato vs. Série de Taylor) rodando:
 
 ```bash
-python basic_plots.py
+python single_universe_plots.py
 ```
 
-**4. Superposition & Comparison**
-
-To automatically run the integration for three distinct universe scenarios (Custom, Matter-only, and Dark Energy-only) and plot their superpositions, use the comparison script:
+**4. Superposição e Comparação de Modelos:** Para integrar automaticamente cenários distintos (Universo Customizado, Apenas Matéria e Apenas Energia Escura) e plotar suas respectivas curvas em um mesmo painel visual, utilize:
 
 ```bash
-python comparison_plot.py
+python comparison_plots.py
 ```
 
-(All generated graphs will be saved in high resolution inside the figures/ directory).
+**5. Inferência Estatística Observacional:** Para ajustar modelos aos dados de supernovas (_obs_data.txt_), calculando a matriz de $\chi^2$ via força bruta, traçando os contornos de confiança (elipses de erro a 1 $\sigma$, 2 $\sigma$ e 3 $\sigma$) e extraindo as probabilidades de expansão acelerada, execute:
 
-![superpositions Plot Example](exemples/DLcomparison.svg)
+```bash
+python observational_statistical_analysis.py
+```
 
-**5. Interactive Demonstration
-
-For a guided, interactive exploration of the models and plots, a Jupyter Notebook is available. You can open and run it using your preferred editor (like VS Code) or via terminal:
+**6. Demonstração Interativa:** Para uma exploração guiada dos modelos, testes de integração e visualização estatística, um Jupyter Notebook está disponível. Execute-o via terminal com:
 
 ```bash
 jupyter notebook notebooks/demonstration.ipynb
 ```
 
-## Theoretical Background
+## Fundamentação Teórica e Estatística
 
-The mathematical foundation of this integrator is based on the classical definitions of cosmological distances for an FLRW model, as summarized in standard cosmography literature. The code calculates these quantities in a cascading sequence:
+A base matemática apoia-se nas definições cosmológicas clássicas para um universo homogêneo e isotrópico. A rotina processa as seguintes grandezas em cascata:
 
-**1. Hubble Expansion Function ($E(z)$)**
-The evolution of the universe's expansion rate as a function of redshift $z$ is described by $E(z)$, which depends on the density parameters for matter ($\Omega_m$), curvature ($\Omega_k$), and dark energy ($\Omega_{EE}$), considering its equation of state $w$:
+**1. Função de Expansão de Hubble ($E(z)$):** Descreve a evolução temporal da taxa de expansão em função da densidade de matéria ($\Omega_m$), curvatura espacial ($\Omega_k$), energia escura ($\Omega_{EE}$) e seu parâmetro de estado $w$:
 
 $$E(z) = \sqrt{\Omega_m(1+z)^3 + \Omega_k(1+z)^2 + \Omega_{EE}(1+z)^{3(1+w)}}$$
 
-**2. Comoving Distance (Line-of-Sight) ($D_C$)**
-Represents the distance traveled by light along the line of sight, which is the primary target of the numerical integration:
+**2. Distância Comóvel Radial ($D_C$):** É a coordenada central do nosso integrador, representando a distância no tempo de olhar para trás (lookback time) na linha de visada:
 
 $$D_C = \frac{c}{H_0} \int_0^z \frac{dz'}{E(z')}$$
 
-**3. Comoving Distance (Transverse) ($D_M$)**
-Accounts for the geometry of the universe. Given the Hubble distance $D_H = c/H_0$, the transverse distance is determined by the spatial curvature parameter ($\Omega_k = 1 - \Omega_m - \Omega_{EE}$):
+**3. Distância Comóvel Transversal ($D_M$):** Inclui os efeitos da geometria global. Utilizando a distância de Hubble $D_H = c/H_0$ e a relação $\Omega_k = 1 - \Omega_m - \Omega_{EE}$:
 
-$$D_M = \begin{cases} \frac{D_H}{\sqrt{\Omega_k}} \sinh\left(\sqrt{\Omega_k} \frac{D_C}{D_H}\right) & \text{if } \Omega_k > 0 \text{ (Open Universe)} \\ D_C & \text{if } \Omega_k = 0 \text{ (Flat Universe)} \\ \frac{D_H}{\sqrt{|\Omega_k|}} \sin\left(\sqrt{|\Omega_k|} \frac{D_C}{D_H}\right) & \text{if } \Omega_k < 0 \text{ (Closed Universe)} \end{cases}$$
+$$D_M = \begin{cases} \frac{D_H}{\sqrt{\Omega_k}} \sinh\left(\sqrt{\Omega_k} \frac{D_C}{D_H}\right) & \text{se } \Omega_k > 0 \text{ (Universo Aberto)} \\ D_C & \text{se } \Omega_k = 0 \text{ (Universo Plano)} \\ \frac{D_H}{\sqrt{|\Omega_k|}} \sin\left(\sqrt{|\Omega_k|} \frac{D_C}{D_H}\right) & \text{se } \Omega_k < 0 \text{ (Universo Fechado)} \end{cases}$$
 
-**4. Luminosity Distance ($D_L$)**
-Relates the absolute luminosity of an object to its observed flux on Earth, serving as the key parameter for studying "standard candles" (such as supernovae):
+**4. Distância de Luminosidade ($D_L$) e Módulo de Distância ($\mu$)** Conecta o fluxo fotônico recebido à luminosidade intrínseca da vela padrão:
 
 $$D_L = (1+z) D_M$$
 
-**5. Distance Modulus ($\mu$)**
-The logarithmic relationship between apparent and absolute magnitude, representing the direct astronomical observable from the simulation:
+A conversão logarítmica resulta no Módulo de Distância ($\mu$), nossa principal observável:
 
 $$\mu = 5 \log_{10}\left(D_L\right) + 25$$
-*(Where $D_L$ is expressed in Megaparsecs - Mpc).*
 
-## Project Structure
+**5. Inferência de Parâmetros e Maximização da Verossimilhança ($\chi^2$)** Para adequar a teoria aos dados, o código computa o qui-quadrado sobre os erros observacionais gaussianos ($\sigma_{\mu_i}$):
 
-```text
-├── data/                  # Generated numerical data files (.txt)
-├── figures/               # High-resolution plots (.png)
-├── notebooks/             # Interactive demonstrations
-│   ├── data/              # Notebook-specific generated data
-│   ├── figures/           # Notebook-specific generated plots
-│   └── demonstration.ipynb # Interactive demo of the integrator
-├── src/                   # Core source code
-│   ├── constants.py       # Physical constants and step sizes
-│   ├── core.py            # Mathematical functions and equations
-│   ├── parameters.py      # Input cosmological parameters
-│   ├── plot.py            # Plotting configurations (LaTeX style)
-│   └── save_load.py       # I/O functions for handling .txt files
-├── basic_plots.py         # Script to plot single-model graphs
-├── comparison_plot.py     # Script to generate and plot model superpositions
-├── main.py                # Core integration engine and data generator
-└── requirements.txt       # Project dependencies
+$$\chi^2 = \sum_{i} \frac{[\mu_{obs}(z_i) - \mu_{teo}(z_i, \Omega_M, \Omega_{EE}, w)]^2}{\sigma_{\mu_i}^2}$$
+
+Os intervalos de confiança são construídos assumindo que a densidade de probabilidade distribui-se como $P \propto \exp(-\chi^2/2)$. O conjunto de análise também suporta quebra de degenerescência adicionando termos de *prior*, como o limite da Radiação Cósmica de Fundo (CMB)[cite: 63].
+
+## Estrutura do Projeto:
+
+```bash
+
+├── data/                  # Arquivos exportados de dados numéricos (.txt)
+├── figures/               # Gráficos de saída em alta qualidade (.pdf, .svg)
+├── notebooks/             # Ambiente interativo de testes e demonstração
+│   ├── data/
+│   ├── figures/
+│   └── demonstration.ipynb
+├── src/                   # Código-fonte e bibliotecas do núcleo
+│   ├── constants.py       # Constantes físicas e resolução de malhas iterativas
+│   ├── core.py            # Equações teóricas e funções de estatística bayesiana
+│   ├── parameters.py      # Inputs cosmológicos e limites de inferência
+│   ├── plot.py            # Customização visual para publicação (formatação LaTeX)
+│   └── save_load.py       # Rotinas de I/O para geração local de dados
+├── comparison_plots.py                   # Renderiza a superposição de distâncias teóricas
+├── main.py                               # Motor numérico isolado para cálculo de distâncias
+├── observational_statistical_analysis.py # Suíte completa para a varredura do qui-quadrado
+├── single_universe_plots.py              # Renderiza comportamento numérico de um modelo único
+├── obs_data.txt           # Input dos dados observacionais (catálogo de Supernovas Ia)
+└── requirements.txt       # Arquivo de dependências
+
 ```
 
-## Motivation
+## Motivação
 
-This repository was developed as part of a cosmology project focused on the study of supernovae. The central objective of this code is to provide an open-source and reproducible routine for the numerical integration of luminosity distance, allowing for direct comparison of the universe's expansion behavior under different matter and dark energy density parameters.
+Este repositório foi construído no escopo da disciplina Cosmologia do Bacharelado em Astronomia (IAG-USP), buscando investigar o tratamento observacional de SNe Ia como velas-padrão. O foco migra da formulação reprodutível de distâncias para a constrição observacional de parâmetros como aceleração cósmica. A estruturação orienta-se aos princípios da Ciência Aberta, garantindo flexibilidade a outros estudantes e pesquisadores.
 
-## References
+## Referências
 
-The mathematical development of this integrator, as well as the cascading equations for cosmological distances, were strongly based on:
-
-* HOGG, David W. **Distance measures in cosmology**. 1999. Available at: [https://arxiv.org/abs/astro-ph/9905116](https://arxiv.org/abs/astro-ph/9905116).
+* HOGG, David W. **Distance measures in cosmology**. 1999. Disponível em: https://arxiv.org/abs/astro-ph/9905116.
+* COE, Dan. **Fisher Matrices and Confidence Ellipses: A Quick-Start Guide and Software**. 2009. Disponível em: https://arxiv.org/abs/0906.4123.
