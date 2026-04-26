@@ -37,18 +37,15 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="return"):
     try:
         status("Iniciando processo de integração numérica para parâmetros pontuais")
         resintlist = integracao(integral, Omega_M, Omega_EE, z, w)
-        status(
-            "Processo de integração numérica para parâmetros pontuais finalizado com sucesso!"
-        )
         param("Integração Numérica", resintlist[0], "Mpc")
         param("Erro Estimado", resintlist[1], "Mpc")
         param(
-            "Distância de Luminosidade para 'z' (dL(z))",
+            "Distância de Luminosidade para (dL(z))",
             dL(Omega_M, Omega_EE, resintlist[0], z),
             "Mpc",
         )
         param(
-            "Módulo de Distância para 'z' (mu(z))",
+            "Módulo de Distância (mu(z))",
             mu(Omega_M, Omega_EE, resintlist[0], z),
             "mag",
         )
@@ -76,7 +73,6 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="return"):
         DLAPvectorY = sollist[5]
         DIFvectorX = sollist[6]
         DIFvectorY = sollist[7]
-        status("Integração por todo o intervalo de redshift finalizada com sucesso!")
 
         # ? -----------------------------------------------------------------------------
         # ?         EXPORTAÇÃO DE DADOS
@@ -245,13 +241,12 @@ def main(Omega_M, Omega_EE, w, z, z_step, type="return"):
                 "Mpc",
             )
         elif type == "return":
-            status("Rotina principal finalizada!")
+            status("EXECUÇÃO FINALIZADA!")
             return [
                 dL(Omega_M, Omega_EE, resintlist[0], z),
                 mu(Omega_M, Omega_EE, resintlist[0], z),
             ]
-        status("Exportação de dados concluida com sucesso!")
-        status("Rotina principal finalizada!")
+        status("EXECUÇÃO FINALIZADA!")
     except Exception as e:
         status(f"Falha no processo de salvamento! Erro: {e}")
 

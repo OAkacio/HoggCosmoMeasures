@@ -25,8 +25,6 @@ def param(nome, valor, unidade=""):
     print(f"      {nome} = {valor}{unit_str}")
 
 
-def bar(largura=60):
-    """Função responsável por criar um output-status em estilo de barra de divisão."""
-    print("\n")
-    print("◇" * largura)
-    print("\n")
+def space(altura=3):
+    """Função responsável por criar um output-status de vertical space."""
+    print("\n" * altura)

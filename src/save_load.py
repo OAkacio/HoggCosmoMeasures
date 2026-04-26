@@ -10,6 +10,12 @@
 import numpy as np
 from pathlib import Path as path
 
+# ? -----------------------------------------------------------------------------
+# ?         BIBLIOTECAS
+# ? -----------------------------------------------------------------------------
+
+from src.system import *
+
 
 # * =============================================================================
 # * FUNÇÕES DE SALVAMENTO
@@ -47,6 +53,7 @@ def save_data(
         header=header_text,
         comments="# ",
     )
+    return param("Salvo com sucesso!", nome_arquivo, "OK")
 
 
 # * =============================================================================
@@ -68,6 +75,7 @@ def load_data(caminho_arquivo):
     except Exception as e:
         print(f"Erro ao ler o arquivo: {e}")
         return [], []
+    return param("Carregado com sucesso!", caminho_arquivo, "OK")
 
 
 def load_obs_data(caminho_arquivo):
@@ -85,4 +93,4 @@ def load_obs_data(caminho_arquivo):
         return None
     except Exception as e:
         print(f"Erro ao ler o arquivo: {e}")
-        return None
+        return param("Carregado com sucesso!", caminho_arquivo, "OK")

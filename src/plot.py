@@ -12,6 +12,11 @@ from pathlib import Path as path
 from matplotlib.ticker import AutoMinorLocator
 import numpy as np
 
+# ? -----------------------------------------------------------------------------
+# ?         BIBLIOTECAS
+# ? -----------------------------------------------------------------------------
+
+from src.system import *
 
 # * =============================================================================
 # * FUNÇÕES DE CRIAÇÃO DE GRÁFICOS
@@ -67,6 +72,7 @@ def plot(
             transparent=False,
         )
     plt.show()
+    return param("Salvo com sucesso!", save_name, "OK")
 
 
 # ? -----------------------------------------------------------------------------
@@ -142,6 +148,7 @@ def ppplot(
             transparent=False,
         )
     plt.show()
+    return param("Salvo com sucesso!", save_name, "OK")
 
 
 # ? -----------------------------------------------------------------------------
@@ -223,3 +230,4 @@ def elipse_plot(
             transparent=False,
         )
     plt.show()
+    return param("Salvo com sucesso!", save_name, "OK")

@@ -16,7 +16,7 @@ from src.constants import *
 # * ROTINA PRINCIPAL
 # * =============================================================================
 
-header("Iniciando basic plots...")
+header("Iniciando basic plots...", Folder="/data/...")
 
 # ? -----------------------------------------------------------------------------
 # ?         CARREGANDO DADOS DO UNIVERSO SIMULADO
@@ -36,6 +36,7 @@ try:
     # ?         GERANDO GRÁFICOS DE PARÂMETROS
     # ? -----------------------------------------------------------------------------
 
+    status("Iniciando criação do gráfico (dL, z)")
     plot(
         True,
         DLvectorX,
@@ -44,6 +45,7 @@ try:
         "z",
         r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",
     )
+    status("Iniciando criação do gráfico (dL_aprox, z)")
     plot(
         True,
         DLAPvectorX,
@@ -52,6 +54,7 @@ try:
         "z",
         r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",
     )
+    status("Iniciando criação do gráfico (dL-dL_aprox, z)")
     plot(
         True,
         DIFvectorX,
@@ -60,6 +63,7 @@ try:
         "z",
         r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",
     )
+    status("Iniciando criação do gráfico (mu, z)")
     plot(
         True,
         MUvectorX,
@@ -68,7 +72,6 @@ try:
         "z",
         r"$\mu$ (mag)",
     )
-    status("Criação e salvamento dos gráficos concluida com sucesso!")
-    status("Rotina de criação de gráficos finalizada")
+    status("EXECUÇÃO FINALIZADA!")
 except Exception as e:
     status(f"Falha no processo de plotagem dos gráficos! Erro: {e}")
