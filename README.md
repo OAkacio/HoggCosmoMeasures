@@ -51,7 +51,7 @@ python single_universe_plots.py
 python comparison_plots.py
 ```
 
-![DLcomparison](exemples/DLcomparison.svg)
+![exemplo1](exemples/exemple_fig1.svg)
 
 **5. Inferência Estatística Observacional:** Para ajustar modelos aos dados de supernovas (_obs_data.txt_), calculando a matriz de $\chi^2$ via força bruta, traçando os contornos de confiança (elipses de erro a 1 $\sigma$, 2 $\sigma$ e 3 $\sigma$) e extraindo as probabilidades de expansão acelerada, execute:
 
@@ -59,7 +59,7 @@ python comparison_plots.py
 python observational_statistical_analysis.py
 ```
 
-![Texto Alternativo](exemples/elipse_var.svg)
+![exemplo2](exemples/exemple_fig2.svg)
 
 **6. Demonstração Interativa:** Para uma exploração guiada dos modelos, testes de integração e visualização estatística, um Jupyter Notebook está disponível. Execute-o via terminal com:
 
