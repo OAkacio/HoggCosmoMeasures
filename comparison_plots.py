@@ -8,10 +8,12 @@
 # ? -----------------------------------------------------------------------------
 
 from main import *
-from src.plot import *
 from src.constants import *
 from src.parameters import *
-from src.system import *
+from toolkit import graphs as gp
+from toolkit import system as sy
+from toolkit import saveload as sl
+
 
 # * =============================================================================
 # * ROTINA PRINCIPAL
@@ -22,53 +24,64 @@ from src.system import *
 # ? -----------------------------------------------------------------------------
 
 try:
-    header("Iniciando comparison plot...", Folder="/data/...")
-    space()
-    status("Iniciando 1a análise")
-    main(Omega_M, Omega_EE, w, z, z_step, "custom")
-    space()
-    status("Iniciando 2a análise")
-    main(1, 0, -1, z, z_step, "M")
-    space()
-    status("Iniciando 3a análise")
-    main(0, 1, -1, z, z_step, "EE")
-    space()
+    sy.header("Comparação de Universos", Folder="/data/...")
+    sy.status("Iniciando carregamento de dados...")
+    DLvectorX = sl.loadtable(f"data/DLdados.txt")[0]
+    DLAPvectorX = sl.loadtable(f"data/DLAPdados.txt")[0]
+    DIFvectorX = sl.loadtable(f"data/DIFdados.txt")[0]
+    MUvectorX = sl.loadtable(f"data/MUdados.txt")[0]
+    DLvectorY = sl.loadtable(f"data/DLdados.txt")[1]
+    DLAPvectorY = sl.loadtable(f"data/DLAPdados.txt")[1]
+    DIFvectorY = sl.loadtable(f"data/DIFdados.txt")[1]
+    MUvectorY = sl.loadtable(f"data/MUdados.txt")[1]
+    infos = sl.loadtable(f"data/infos.txt")[0]
+    sy.ok(("infos", "DLdados", "MUdados", "DLAPdados", "DIFdados"))
+    sy.status("Dados carregados com sucesso!")
+    sy.param(
+        ("Omega_M", infos[0]), ("Omega_EE", infos[1]), ("w", infos[2]), ("z", infos[3])
+    )
+    sy.status("Iniciando análise de universo de somente materia...")
+    main(1, 0, -1, z, "M")
+    sy.status("Iniciando análise de universo de somente energia...")
+    main(0, 1, -1, z, "EE")
 except Exception as e:
-    status(f"Um erro foi encontrado ao tentar executar a rotina principal. Erro: {e}")
+    sy.status(
+        f"Um erro foi encontrado ao tentar executar a rotina principal. Erro: {e}"
+    )
 
 # ? -----------------------------------------------------------------------------
 # ?         GERANDO GRÁFICOS PARA DISTÂNCIA DE LUMINOSIDADE
 # ? -----------------------------------------------------------------------------
 
 try:
-    status("Iniciando criação de gráficos")
+    sy.status("Carregando dados gerados....")
     dadosM = "DLdadosM.txt"
     dadosEE = "DLdadosEE.txt"
     dadosMEE = f"DLdados.txt"
-    x1 = load_data(f"data/DLdadosM.txt")[0]
-    x2 = load_data(f"data/DLdadosEE.txt")[0]
-    x3 = load_data(f"data/DLdados.txt")[0]
-    y1 = load_data(f"data/DLdadosM.txt")[1] / (c / H0)
-    y2 = load_data(f"data/DLdadosEE.txt")[1] / (c / H0)
-    y3 = load_data(f"data/DLdados.txt")[1] / (c / H0)
-    ppplot(
-        True,
-        x1,
-        y1,
-        x2,
-        y2,
-        x3,
-        y3,
-        r"Matter-only $(\Omega_m=1.0, \Omega_\Lambda=0.0)$",
-        r"$\Lambda$-only $(\Omega_m=0.0, \Omega_\Lambda=1.0)$",
-        rf"Universo Simulado $(\Omega_m={Omega_M}, \Omega_\Lambda={Omega_EE})$",
-        "Comparação de Distâncias de Luminosidade",
-        "z",
-        r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",
-        espessura=2.5,
+    x1 = sl.loadtable(f"data/DLdadosM.txt")[0]
+    x2 = sl.loadtable(f"data/DLdadosEE.txt")[0]
+    x3 = sl.loadtable(f"data/DLdados.txt")[0]
+    y1 = sl.loadtable(f"data/DLdadosM.txt")[1] / (c / H0)
+    y2 = sl.loadtable(f"data/DLdadosEE.txt")[1] / (c / H0)
+    y3 = sl.loadtable(f"data/DLdados.txt")[1] / (c / H0)
+    sy.ok(("DLdados", "DLdadosM", "DLdadosEE"))
+    sy.status("Iniciando geração de gráficos...")
+    gp.multi(
+        (x1, x2, x3),
+        (y1, y2, y3),
+        titulo="",
+        NOMEvecx=r"$z$",
+        NOMEvecy=r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",
+        nomes_curvas=(
+            r"Somente Matéria $(\Omega_m=1.0, \Omega_\Lambda=0.0)$",
+            r"Somente Energia $(\Omega_m=0.0, \Omega_\Lambda=1.0)$",
+            rf"Universo Simulado $(\Omega_m={Omega_M}, \Omega_\Lambda={Omega_EE})$",
+        ),
+        save=True,
+        nome="DLComparacao",
     )
 except Exception as e:
-    status(
+    sy.status(
         f"Um erro foi encontrado ao tentar fazer a sobreposição dos gráficos de Distância de luminosidade. Erro: {e}"
     )
 
@@ -80,59 +93,64 @@ try:
     dadosM = "MUdadosM.txt"
     dadosEE = "MUdadosEE.txt"
     dadosMEE = f"MUdados.txt"
-    x1 = load_data(f"data/MUdadosM.txt")[0]
-    x2 = load_data(f"data/MUdadosEE.txt")[0]
-    x3 = load_data(f"data/MUdados.txt")[0]
-    y1 = load_data(f"data/MUdadosM.txt")[1]
-    y2 = load_data(f"data/MUdadosEE.txt")[1]
-    y3 = load_data(f"data/MUdados.txt")[1]
-    ppplot(
-        True,
-        x1,
-        y1,
-        x2,
-        y2,
-        x3,
-        y3,
-        r"Matter-only $(\Omega_m=1.0, \Omega_\Lambda=0.0)$",
-        r"$\Lambda$-only $(\Omega_m=0.0, \Omega_\Lambda=1.0)$",
-        rf"Universo Simulado $(\Omega_m={Omega_M}, \Omega_\Lambda={Omega_EE})$",
-        "Comparação de Módulos e Distância",
-        "z",
-        r"$\mu$ (mag)",
+    x1 = sl.loadtable(f"data/MUdadosM.txt")[0]
+    x2 = sl.loadtable(f"data/MUdadosEE.txt")[0]
+    x3 = sl.loadtable(f"data/MUdados.txt")[0]
+    y1 = sl.loadtable(f"data/MUdadosM.txt")[1]
+    y2 = sl.loadtable(f"data/MUdadosEE.txt")[1]
+    y3 = sl.loadtable(f"data/MUdados.txt")[1]
+    gp.multi(
+        (x1, x2, x3),
+        (y1, y2, y3),
+        titulo="",
+        nomes_curvas=(
+            r"Somente Matéria $(\Omega_m=1.0, \Omega_\Lambda=0.0)$",
+            r"Somente Energia $(\Omega_m=0.0, \Omega_\Lambda=1.0)$",
+            rf"Universo Simulado $(\Omega_m={Omega_M}, \Omega_\Lambda={Omega_EE})$",
+        ),
+        NOMEvecx=r"$z$",
+        NOMEvecy=r"$\mu$ (mag)",
+        save=True,
+        nome="MUcomparacao",
     )
 except Exception as e:
-    status(
+    sy.status(
         f"Um erro foi encontrado ao tentar fazer a sobreposição dos gráficos de Módulo de Distância. Erro: {e}"
     )
 try:
     dadosM = "DLAPdadosM.txt"
     dadosEE = "DLAPdadosEE.txt"
     dadosMEE = "DLAPdados.txt"
-    x1 = load_data(f"data/DLAPdadosM.txt")[0]
-    x2 = load_data(f"data/DLAPdadosEE.txt")[0]
-    x3 = load_data(f"data/DLAPdados.txt")[0]
-    y1 = load_data(f"data/DLAPdadosM.txt")[1]
-    y2 = load_data(f"data/DLAPdadosEE.txt")[1]
-    y3 = load_data(f"data/DLAPdados.txt")[1]
-    ppplot(
-        True,
-        x1,
-        y1,
-        x2,
-        y2,
-        x3,
-        y3,
-        r"Matter-only $(\Omega_m=1.0, \Omega_\Lambda=0.0)$",
-        r"$\Lambda$-only $(\Omega_m=0.0, \Omega_\Lambda=1.0)$",
-        rf"Universo Simulado $(\Omega_m={Omega_M}, \Omega_\Lambda={Omega_EE})$",
-        "Comparação de Distâncias de Luminosidade Aproximada",
-        "z",
-        r"$\mu$ (mag)",
+    x1 = sl.loadtable(f"data/DLAPdadosM.txt")[0]
+    x2 = sl.loadtable(f"data/DLAPdadosEE.txt")[0]
+    x3 = sl.loadtable(f"data/DLAPdados.txt")[0]
+    y1 = sl.loadtable(f"data/DLAPdadosM.txt")[1]/ (c / H0)
+    y2 = sl.loadtable(f"data/DLAPdadosEE.txt")[1]/ (c / H0)
+    y3 = sl.loadtable(f"data/DLAPdados.txt")[1]/ (c / H0)
+    gp.multi(
+        (x1, x2, x3),
+        (y1, y2, y3),
+        titulo="",
+        nomes_curvas=(
+            r"Somente Matéria $(\Omega_m=1.0, \Omega_\Lambda=0.0)$",
+            r"Somente Energia $(\Omega_m=0.0, \Omega_\Lambda=1.0)$",
+            rf"Universo Simulado $(\Omega_m={Omega_M}, \Omega_\Lambda={Omega_EE})$",
+        ),
+        NOMEvecx=r"$z$",
+        NOMEvecy=r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",
+        save=True,
+        nome="DLAPcomparacao"
     )
 except:
-    status(
+    sy.status(
         f"Um erro foi encontrado ao tentar fazer a sobreposição dos gráficos de Distância de luminosidade Aproximada. Erro: {e}"
     )
+sy.ok(
+    (
+        "Gráfico de Distância de Luminosidade Exata dos Universos",
+        "Gráfico de Módulo de Distância dos Universos",
+        "Gráfico de Distância de Luminosidade Aproxiomada dos Universos",
+    )
+)
 
-status("EXECUÇÃO FINALIZADA!")
+sy.fim()

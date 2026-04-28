@@ -15,9 +15,9 @@ import numpy as np
 
 from src.parameters import *
 from src.core import *
-from src.save_load import *
 from src.constants import *
-from src.system import *
+from toolkit import system as sy
+from toolkit import saveload as sl
 
 
 # * =============================================================================
@@ -26,7 +26,7 @@ from src.system import *
 
 
 def main(Omega_M, Omega_EE, w, z, type="return"):
-    header(
+    sy.header(
         "iniciando HoggCosmoMeasures...", Omega_M=Omega_M, Omega_EE=Omega_EE, w=w, z=z
     )
 
@@ -35,35 +35,43 @@ def main(Omega_M, Omega_EE, w, z, type="return"):
     # ? -----------------------------------------------------------------------------
 
     try:
-        status("Iniciando processo de integração numérica para parâmetros pontuais")
+        sy.status("Iniciando processo de integração numérica para parâmetros pontuais")
         resintlist = integracao(integral, Omega_M, Omega_EE, z, w)
-        param("Integração Numérica", resintlist[0], "Mpc")
-        param("Erro Estimado", resintlist[1], "Mpc")
-        param(
-            "Distância de Luminosidade para (dL(z))",
-            dL(Omega_M, Omega_EE, resintlist[0], z),
-            "Mpc",
-        )
-        param(
-            "Módulo de Distância (mu(z))",
-            mu(Omega_M, Omega_EE, resintlist[0], z),
-            "mag",
+        sy.param(
+            ("Integração Numérica", resintlist[0], "Mpc"),
+            ("Erro Estimado", resintlist[1], "Mpc"),
+            (
+                "Distância de Luminosidade para (dL(z))",
+                dL(Omega_M, Omega_EE, resintlist[0], z),
+                "Mpc",
+            ),
+            (
+                "Módulo de Distância (mu(z))",
+                mu(Omega_M, Omega_EE, resintlist[0], z),
+                "mag",
+            ),
         )
     except Exception as e:
-        status(f"Processo de integração numérica falhou! Erro: {e}")
-    status("Iniciando cálculo de parâmetros do universo")
-    param("Tipo de universo", UniType(Omega_K(Omega_M, Omega_EE)))
-    param("Constante de curvatura espacial (k)", k(Omega_M, Omega_EE))
-    param("Parâmetro derivado de curvatura (Omega_K)", Omega_K(Omega_M, Omega_EE))
-    param("Distância comóvel radial (dC)", dC(resintlist[0]), "Mpc")
-    param("Parâmetro de desaceleração (q0)", q0(Omega_M, Omega_EE, w))
+        sy.status(f"Processo de integração numérica falhou! Erro: {e}...")
+    sy.status("Iniciando cálculo de parâmetros do universo")
+    sy.param(
+        ("Tipo de universo", UniType(Omega_K(Omega_M, Omega_EE)), "adm."),
+        ("Constante de curvatura espacial (k)", k(Omega_M, Omega_EE), "adm."),
+        (
+            "Parâmetro derivado de curvatura (Omega_K)",
+            Omega_K(Omega_M, Omega_EE),
+            "adm.",
+        ),
+        ("Distância comóvel radial (dC)", dC(resintlist[0]), "Mpc"),
+        ("Parâmetro de desaceleração (q0)", q0(Omega_M, Omega_EE, w), "adm."),
+    )
 
     # ? -----------------------------------------------------------------------------
     # ?         CÁLCULO DE PARÂMETROS PARA TODO O INTERVALO
     # ? -----------------------------------------------------------------------------
 
     try:
-        status("Iniciando integração por todo o intervalo de redshift")
+        sy.status("Iniciando integração por todo o intervalo de redshift...")
         sollist = solution(Omega_M, Omega_EE, z, z_step, w)
         DLvectorX = sollist[0]
         DLvectorY = sollist[1]
@@ -79,176 +87,40 @@ def main(Omega_M, Omega_EE, w, z, type="return"):
         # ? -----------------------------------------------------------------------------
 
         if type == "custom":
-            status("Iniciando exportação de dados")
-            save_data(
-                f"DLdados",
-                10,
-                DLvectorX,
-                DLvectorY,
-                "Distribuicao de Distancia de Luminosidade",
-                0,
-                10,
-                "z",
-                "adm.",
-                "dL",
-                "Mpc",
-            )
-            save_data(
-                f"MUdados",
-                10,
-                MUvectorX,
-                MUvectorY,
-                "Distribuicao de Modulo de Distancia",
-                0,
-                10,
-                "z",
-                "adm.",
-                "mu",
-                "mag",
-            )
-            save_data(
-                f"DLAPdados",
-                10,
-                DLAPvectorX,
-                DLAPvectorY,
-                "Distribuicao de Distancia de Luminosidade Aproximada",
-                0,
-                10,
-                "z",
-                "adm.",
-                "dL",
-                "Mpc",
-            )
-            save_data(
-                f"DIFdados",
-                10,
-                DIFvectorX,
-                DIFvectorY,
-                "Analise de Erro na Distribuicao de Distancia de Luminosidade exata e Aproximada",
-                0,
-                10,
-                "z",
-                "adm.",
-                "dL",
-                "Mpc",
-            )
+            sy.status("Iniciando exportação de dados...")
+            sl.savetable("infos", ((Omega_M, Omega_EE, w, z), ("", "", "", "")))
+            sl.savetable("DLdados", (DLvectorX, DLvectorY))
+            sl.savetable("MUdados", (MUvectorX, MUvectorY))
+            sl.savetable("DLAPdados", (DLAPvectorX, DLAPvectorY))
+            sl.savetable("DIFdados", (DIFvectorX, DIFvectorY))
+            sy.ok(("infos", "DLdados", "MUdados", "DLAPdados", "DIFdados"))
         elif type == "M":
-            status("Iniciando exportação de dados")
-            save_data(
-                f"DLdadosM",
-                10,
-                DLvectorX,
-                DLvectorY,
-                "Distribuicao de Distancia de Luminosidade",
-                0,
-                10,
-                "z",
-                "adm.",
-                "dL",
-                "Mpc",
-            )
-            save_data(
-                f"MUdadosM",
-                10,
-                MUvectorX,
-                MUvectorY,
-                "Distribuicao de Modulo de Distancia",
-                0,
-                10,
-                "z",
-                "adm.",
-                "mu",
-                "mag",
-            )
-            save_data(
-                f"DLAPdadosM",
-                10,
-                DLAPvectorX,
-                DLAPvectorY,
-                "Distribuicao de Distancia de Luminosidade Aproximada",
-                0,
-                10,
-                "z",
-                "adm.",
-                "dL",
-                "Mpc",
-            )
-            save_data(
-                f"DIFdadosM",
-                10,
-                DIFvectorX,
-                DIFvectorY,
-                "Analise de Erro na Distribuicao de Distancia de Luminosidade exata e Aproximada",
-                0,
-                10,
-                "z",
-                "adm.",
-                "dL",
-                "Mpc",
-            )
+            sy.status("Iniciando exportação de dados")
+            sy.status("Iniciando exportação de dados...")
+            sl.savetable("infosM", ((Omega_M, Omega_EE, w, z), ("", "", "", "")))
+            sl.savetable("DLdadosM", (DLvectorX, DLvectorY))
+            sl.savetable("MUdadosM", (MUvectorX, MUvectorY))
+            sl.savetable("DLAPdadosM", (DLAPvectorX, DLAPvectorY))
+            sl.savetable("DIFdadosM", (DIFvectorX, DIFvectorY))
+            sy.ok(("infosM", "DLdadosM", "MUdadosM", "DLAPdadosM", "DIFdadosM"))
         elif type == "EE":
-            status("Iniciando exportação de dados")
-            save_data(
-                f"DLdadosEE",
-                10,
-                DLvectorX,
-                DLvectorY,
-                "Distribuicao de Distancia de Luminosidade",
-                0,
-                10,
-                "z",
-                "adm.",
-                "dL",
-                "Mpc",
-            )
-            save_data(
-                f"MUdadosEE",
-                10,
-                MUvectorX,
-                MUvectorY,
-                "Distribuicao de Modulo de Distancia",
-                0,
-                10,
-                "z",
-                "adm.",
-                "mu",
-                "mag",
-            )
-            save_data(
-                f"DLAPdadosEE",
-                10,
-                DLAPvectorX,
-                DLAPvectorY,
-                "Distribuicao de Distancia de Luminosidade Aproximada",
-                0,
-                10,
-                "z",
-                "adm.",
-                "dL",
-                "Mpc",
-            )
-            save_data(
-                f"DIFdadosEE",
-                10,
-                DIFvectorX,
-                DIFvectorY,
-                "Analise de Erro na Distribuicao de Distancia de Luminosidade exata e Aproximada",
-                0,
-                10,
-                "z",
-                "adm.",
-                "dL",
-                "Mpc",
-            )
+            sy.status("Iniciando exportação de dados")
+            sy.status("Iniciando exportação de dados...")
+            sl.savetable("infosEE", ((Omega_M, Omega_EE, w, z), ("", "", "", "")))
+            sl.savetable("DLdadosEE", (DLvectorX, DLvectorY))
+            sl.savetable("MUdadosEE", (MUvectorX, MUvectorY))
+            sl.savetable("DLAPdadosEE", (DLAPvectorX, DLAPvectorY))
+            sl.savetable("DIFdadosEE", (DIFvectorX, DIFvectorY))
+            sy.ok(("infosEE", "DLdadosEE", "MUdadosEE", "DLAPdadosEE", "DIFdadosEE"))
         elif type == "return":
-            status("EXECUÇÃO FINALIZADA!")
+            sy.status("EXECUÇÃO FINALIZADA!")
             return [
                 dL(Omega_M, Omega_EE, resintlist[0], z),
                 mu(Omega_M, Omega_EE, resintlist[0], z),
             ]
-        status("EXECUÇÃO FINALIZADA!")
+        sy.fim()
     except Exception as e:
-        status(f"Falha no processo de salvamento! Erro: {e}")
+        sy.status(f"Falha no processo de salvamento! Erro: {e}...")
 
 
 # ? -----------------------------------------------------------------------------
