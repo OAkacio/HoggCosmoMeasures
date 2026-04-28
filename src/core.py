@@ -140,7 +140,7 @@ def solution(Omega_M, Omega_EE, z, z_step, w):
         DLAPvectorY.append(approx_dL(Omega_M, Omega_EE, i, w))
         if i <= 1:
             DIFvectorX.append(i)
-            DIFvectorY.append(DLvectorY[-1] - DLAPvectorY[-1])
+            DIFvectorY.append((DLvectorY[-1] - DLAPvectorY[-1])/DLvectorY[-1])
     return [
         DLvectorX,
         DLvectorY,
