@@ -80,20 +80,26 @@ except Exception as e:
     sy.ok(f"Um erro foi encontrado ao tentar calcular as incertezas. Erro: {e}", False)
 try:
     sy.status("Iniciando criação de gráfico de distribuição qui-quadrado...")
-    gp.basicstyle(  # todo: melhorar o gráfico colocando cores -------------------------------------------------------------------------
-        var1d[1],
-        var1d[0],
-        (var1d[1][INDchi_min], chi_min),
-        "",
-        r"$\Omega_M$",
-        r"$\chi^2$",
-        save=True,
-        estilo_linha="--",
-        label_ponto="Densidade de Matéria Bestfit",
-        marcador_ponto="|",
-        tamanho_ponto=200,
-        label_curva=r"Distribuição de $\chi^2$",
-        nome="CHIdistribuicao",
+    deltachi1=var1d[1][INDchi_min]-var1d[1][L_INDchi_sigma1]
+    deltachi2=var1d[1][INDchi_min]-var1d[1][L_INDchi_sigma2]
+    deltachi3=var1d[1][INDchi_min]-var1d[1][L_INDchi_sigma3]
+    gp.basicstyle(
+        x_data=var1d[1],
+        y_data=var1d[0],
+        highlight_point=(var1d[1][INDchi_min], chi_min),
+        title="",
+        x_label=r"$\Omega_M$",
+        y_label=r"$\chi^2$",
+        save_fig=True,
+        linestyle="--",
+        highlight_label="Densidade de Matéria Bestfit",
+        highlight_marker="|",
+        highlight_size=200,
+        curve_label=r"Distribuição de $\chi^2$",
+        filename="CHIdistribuicao",
+        show_plot=False,
+        sigma_intervals=((var1d[1][INDchi_min]-deltachi1,var1d[1][INDchi_min]+deltachi1),(var1d[1][INDchi_min]-deltachi2,var1d[1][INDchi_min]+deltachi2),(var1d[1][INDchi_min]-deltachi3,var1d[1][INDchi_min]+deltachi3)),
+        show_sigma_lines=True,
     )
     sy.ok(("Gráfico de distribuição qui-quadrado"))
 except Exception as e:
