@@ -17,12 +17,17 @@ ORCID: [0009-0007-4484-2129](https://orcid.org/0009-0007-4484-2129)
 
 ## Instalação
 
-Clone este repositório e instale as dependências executando os seguintes comandos no seu terminal:
+Este repositório utiliza um submódulo (`toolkit`) para ferramentas auxiliares. Para clonar o projeto garantindo que todos os arquivos do submódulo sejam baixados simultaneamente, utilize a flag `--recurse-submodules` no seu terminal:
 
 ```bash
-git clone https://github.com/OAkacio/flrw-luminosity-distance-integrator.git
-cd flrw-luminosity-distance-integrator
+git clone --recurse-submodules [https://github.com/OAkacio/HoggCosmoMeasures.git](https://github.com/OAkacio/HoggCosmoMeasures.git)
+cd HoggCosmoMeasures
 pip install -r requirements.txt
+```
+**Nota:** Caso você já tenha clonado o repositório utilizando o comando padrão (sem a flag) e a pasta do submódulo esteja vazia, você pode inicializar e atualizar o toolkit executando o seguinte comando dentro da pasta do projeto:
+
+```bash
+git submodule update --init --recursive
 ```
 
 ## Uso
@@ -51,7 +56,7 @@ python single_universe_plots.py
 python comparison_plots.py
 ```
 
-![exemplo1](exemples/exemple_fig1.svg)
+![exemplo1](exemples/DLComparacao.svg)
 
 **5. Inferência Estatística Observacional:** Para ajustar modelos aos dados de supernovas (_obs_data.txt_), calculando a matriz de $\chi^2$ via força bruta, traçando os contornos de confiança (elipses de erro a 1 $\sigma$, 2 $\sigma$ e 3 $\sigma$) e extraindo as probabilidades de expansão acelerada, execute:
 
@@ -59,7 +64,8 @@ python comparison_plots.py
 python observational_statistical_analysis.py
 ```
 
-![exemplo2](exemples/exemple_fig2.svg)
+![exemplo1](exemples/CHIdistribuicao.svg)
+![exemplo2](exemples/mapadecalorMEE.svg)
 
 **6. Demonstração Interativa:** Para uma exploração guiada dos modelos, testes de integração e visualização estatística, um Jupyter Notebook está disponível. Execute-o via terminal com:
 
@@ -101,24 +107,25 @@ Os intervalos de confiança são construídos assumindo que a densidade de proba
 
 ```bash
 
-├── data/                  # Arquivos exportados de dados numéricos (.txt)
-├── figures/               # Gráficos de saída em alta qualidade (.pdf, .svg)
-├── notebooks/             # Ambiente interativo de testes e demonstração
+├── data/                                 # Arquivos exportados de dados numéricos (.txt)
+├── exemples/                             # Imagens de exemplo para a documentação (.svg)
+├── figures/                              # Gráficos de saída em alta qualidade (.pdf)
+├── notebooks/                            # Ambiente interativo de testes e demonstração
 │   ├── data/
 │   ├── figures/
-│   └── demonstration.ipynb
-├── src/                   # Código-fonte e bibliotecas do núcleo
-│   ├── constants.py       # Constantes físicas e resolução de malhas iterativas
-│   ├── core.py            # Equações teóricas e funções de estatística bayesiana
-│   ├── parameters.py      # Inputs cosmológicos e limites de inferência
-│   ├── plot.py            # Customização visual para publicação (formatação LaTeX)
-│   └── save_load.py       # Rotinas de I/O para geração local de dados
+│   ├── demonstration.ipynb
+│   └── obs_data.txt
+├── src/                                  # Código-fonte e bibliotecas do núcleo
+│   ├── constants.py                      # Constantes físicas e resolução de malhas iterativas
+│   ├── core.py                           # Equações teóricas e funções de estatística bayesiana
+│   └── parameters.py                     # Inputs cosmológicos e limites de inferência
 ├── comparison_plots.py                   # Renderiza a superposição de distâncias teóricas
 ├── main.py                               # Motor numérico isolado para cálculo de distâncias
 ├── observational_statistical_analysis.py # Suíte completa para a varredura do qui-quadrado
 ├── single_universe_plots.py              # Renderiza comportamento numérico de um modelo único
-├── obs_data.txt           # Input dos dados observacionais (catálogo de Supernovas Ia)
-└── requirements.txt       # Arquivo de dependências
+├── toolkit/                              # Conjunto de ferramentas para gerar OUTPUTS (submódulo)
+├── obs_data.txt                          # Input dos dados observacionais (catálogo de Supernovas Ia)
+└── requirements.txt                      # Arquivo de dependências
 
 ```
 
