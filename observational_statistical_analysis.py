@@ -28,7 +28,9 @@ sy.header("Inferência de dados", Dados="obs_data.txt")
 
 sy.status("Iniciando carregamento de dados...")
 try:
-    obsdatalist = sl.loadtable("obs_data.txt", separator=sl.identificadora("obs_data.txt"))
+    obsdatalist = sl.loadtable(
+        "obs_data.txt", separator=sl.identificadora("obs_data.txt")
+    )
     z_list = np.array(obsdatalist[0])
     mu_obs_list = np.array(obsdatalist[1])
     ERROmu_obs_list = np.array(obsdatalist[2])
@@ -93,7 +95,7 @@ try:
         label_curva=r"Distribuição de $\chi^2$",
         nome="CHIdistribuicao",
     )
-    sy.ok(("Gráfico de distribuição qui-quadrado"), one=True)
+    sy.ok(("Gráfico de distribuição qui-quadrado"))
 except Exception as e:
     sy.ok(
         f"Um erro foi encontrado ao tentar plotar o gráfico de distribuição qui-quadrado. Erro: {e}",
@@ -193,7 +195,7 @@ try:
         legend_alpha=0.15,
         legend_fontsize=10,
         colorbar_ticks=3,
-        highlight_marker="Melhor Ajuste",
+        highlight_label="Melhor Ajuste",
         filename="mapadecalorMEE",
         show_plot=False,
     )
@@ -255,34 +257,35 @@ try:
     sy.status("Iniciando criação de gráfico de distribuição qui-quadrado corrigido...")
 
     gp.elipse(
-        omegaM_list,
-        omegaEE_list,
-        np.transpose(var2dPRIOR),
-        ponto_destaque=(
+        x_data=omegaM_list,
+        y_data=omegaEE_list,
+        z_data=np.transpose(var2dPRIOR),
+        highlight_point=(
             round(omegaM_list[MINDchi2d_minPRIOR], 2),
             round(omegaEE_list[EEINDchi2d_minPRIOR], 2),
         ),
-        niveis_elipse=niveisPRIOR,
-        nomes_sigmas=(r"$\sigma_1$", r"$\sigma_2$", r"$\sigma_3$"),
-        NOMEvecx=r"$\Omega_m$",
-        NOMEvecy=r"$\Omega_\Lambda$",
-        tamanho_ponto=125,
-        estilo_elipses=["-", "-", "-"],
-        save=True,
-        HaveGrid=False,
-        pontos_linha_x=omegaM_list,
-        pontos_linha_y=1 - np.array(omegaM_list),
-        legenda_linha="Universo Plano",
-        frame_legenda=True,
-        form="max",
-        framealpha=0.15,
-        tamanho_fonte_legenda=10,
-        num_ticks_colorbar=3,
-        ponto_nome="Melhor Ajuste",
-        nome="mapadecalormEEPRIOR",
+        ellipse_levels=niveisPRIOR,
+        sigma_names=(r"$\sigma_1$", r"$\sigma_2$", r"$\sigma_3$"),
+        x_label=r"$\Omega_m$",
+        y_label=r"$\Omega_\Lambda$",
+        highlight_size=125,
+        ellipse_styles=["-", "-", "-"],
+        save_fig=True,
+        show_grid=False,
+        extra_line_x=omegaM_list,
+        extra_line_y=1 - np.array(omegaM_list),
+        extra_line_label="Universo Plano",
+        legend_frame=True,
+        colorbar_format="max",
+        legend_alpha=0.15,
+        legend_fontsize=10,
+        colorbar_ticks=3,
+        highlight_label="Melhor Ajuste",
+        filename="mapadecalormEEPRIOR",
+        show_plot=False,
     )
 
-    sy.ok(one=True, lista=("Gráfico de Distribuição de Qui-Quadrado Corrigido"))
+    sy.ok(("Gráfico de Distribuição de Qui-Quadrado Corrigido"))
 except Exception as e:
     sy.ok(
         f"Um erro foi encontrado ao tentar plotar o gráfico de distribuição qui-quadrado corrigido. Erro: {e}",
@@ -357,28 +360,29 @@ try:
     sy.status("Iniciando criação de gráfico de distribuição qui-quadrado")
 
     gp.elipse(
-        w_list,
-        omegaM_list,
-        np.transpose(var2dOW),
-        ponto_destaque=(
+        x_data=w_list,
+        y_data=omegaM_list,
+        z_data=np.transpose(var2dOW),
+        highlight_point=(
             round(w_list[WINDchi2dOW_min], 2),
             round(omegaM_list[MINDchi2dOW_min], 2),
         ),
-        niveis_elipse=niveis,
-        nomes_sigmas=(r"$\sigma_1$", r"$\sigma_2$", r"$\sigma_3$"),
-        NOMEvecy=r"$\Omega_m$",
-        NOMEvecx=r"$w$",
-        tamanho_ponto=125,
-        estilo_elipses=["-", "-", "-"],
-        save=True,
-        HaveGrid=False,
-        frame_legenda=True,
-        form="max",
-        framealpha=0.15,
-        tamanho_fonte_legenda=10,
-        num_ticks_colorbar=3,
-        ponto_nome="Melhor Ajuste",
-        nome="mapadecalorWM",
+        ellipse_levels=niveis,
+        sigma_names=(r"$\sigma_1$", r"$\sigma_2$", r"$\sigma_3$"),
+        y_label=r"$\Omega_m$",
+        x_label=r"$w$",
+        highlight_size=125,
+        ellipse_styles=["-", "-", "-"],
+        save_fig=True,
+        show_grid=False,
+        legend_frame=True,
+        colorbar_format="max",
+        legend_alpha=0.15,
+        legend_fontsize=10,
+        colorbar_ticks=3,
+        highlight_label="Melhor Ajuste",
+        filename="mapadecalorWM",
+        show_plot=False,
     )
 except Exception as e:
     sy.ok(
