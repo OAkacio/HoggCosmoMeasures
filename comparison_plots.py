@@ -14,7 +14,6 @@ from toolkit import graphs as gp
 from toolkit import system as sy
 from toolkit import saveload as sl
 
-
 # * =============================================================================
 # * ROTINA PRINCIPAL
 # * =============================================================================
@@ -45,8 +44,9 @@ try:
     sy.status("Iniciando análise de universo de somente energia...")
     main(0, 1, -1, z, "EE")
 except Exception as e:
-    sy.status(
-        f"Um erro foi encontrado ao tentar executar a rotina principal. Erro: {e}"
+    sy.ok(
+        f"Um erro foi encontrado ao tentar executar a rotina principal. Erro: {e}",
+        False,
     )
 
 # ? -----------------------------------------------------------------------------
@@ -67,22 +67,24 @@ try:
     sy.ok(("DLdados", "DLdadosM", "DLdadosEE"))
     sy.status("Iniciando geração de gráficos...")
     gp.multi(
-        (x1, x2, x3),
-        (y1, y2, y3),
-        titulo="",
-        NOMEvecx=r"$z$",
-        NOMEvecy=r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",
-        nomes_curvas=(
+        x_list=(x1, x2, x3),
+        y_list=(y1, y2, y3),
+        title="",
+        x_label=r"$z$",
+        y_label=r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",
+        curve_names=(
             r"Somente Matéria $(\Omega_m=1.0, \Omega_\Lambda=0.0)$",
             r"Somente Energia $(\Omega_m=0.0, \Omega_\Lambda=1.0)$",
             rf"Universo Simulado $(\Omega_m={Omega_M}, \Omega_\Lambda={Omega_EE})$",
         ),
-        save=True,
-        nome="DLComparacao",
+        save_fig=True,
+        filename="DLComparacao",
+        show_plot=False,
     )
 except Exception as e:
-    sy.status(
-        f"Um erro foi encontrado ao tentar fazer a sobreposição dos gráficos de Distância de luminosidade. Erro: {e}"
+    sy.ok(
+        f"Um erro foi encontrado ao tentar fazer a sobreposição dos gráficos de Distância de luminosidade. Erro: {e}",
+        False,
     )
 
 # ? -----------------------------------------------------------------------------
@@ -100,22 +102,24 @@ try:
     y2 = sl.loadtable(f"data/MUdadosEE.txt")[1]
     y3 = sl.loadtable(f"data/MUdados.txt")[1]
     gp.multi(
-        (x1, x2, x3),
-        (y1, y2, y3),
-        titulo="",
-        nomes_curvas=(
+        x_list=(x1, x2, x3),
+        y_list=(y1, y2, y3),
+        title="",
+        curve_names=(
             r"Somente Matéria $(\Omega_m=1.0, \Omega_\Lambda=0.0)$",
             r"Somente Energia $(\Omega_m=0.0, \Omega_\Lambda=1.0)$",
             rf"Universo Simulado $(\Omega_m={Omega_M}, \Omega_\Lambda={Omega_EE})$",
         ),
-        NOMEvecx=r"$z$",
-        NOMEvecy=r"$\mu$ (mag)",
-        save=True,
-        nome="MUcomparacao",
+        x_label=r"$z$",
+        y_label=r"$\mu$ (mag)",
+        save_fig=True,
+        filename="MUcomparacao",
+        show_plot=False,
     )
 except Exception as e:
-    sy.status(
-        f"Um erro foi encontrado ao tentar fazer a sobreposição dos gráficos de Módulo de Distância. Erro: {e}"
+    sy.ok(
+        f"Um erro foi encontrado ao tentar fazer a sobreposição dos gráficos de Módulo de Distância. Erro: {e}",
+        False,
     )
 try:
     dadosM = "DLAPdadosM.txt"
@@ -124,26 +128,28 @@ try:
     x1 = sl.loadtable(f"data/DLAPdadosM.txt")[0]
     x2 = sl.loadtable(f"data/DLAPdadosEE.txt")[0]
     x3 = sl.loadtable(f"data/DLAPdados.txt")[0]
-    y1 = sl.loadtable(f"data/DLAPdadosM.txt")[1]/ (c / H0)
-    y2 = sl.loadtable(f"data/DLAPdadosEE.txt")[1]/ (c / H0)
-    y3 = sl.loadtable(f"data/DLAPdados.txt")[1]/ (c / H0)
+    y1 = sl.loadtable(f"data/DLAPdadosM.txt")[1] / (c / H0)
+    y2 = sl.loadtable(f"data/DLAPdadosEE.txt")[1] / (c / H0)
+    y3 = sl.loadtable(f"data/DLAPdados.txt")[1] / (c / H0)
     gp.multi(
-        (x1, x2, x3),
-        (y1, y2, y3),
-        titulo="",
-        nomes_curvas=(
+        x_list=(x1, x2, x3),
+        y_list=(y1, y2, y3),
+        title="",
+        curve_names=(
             r"Somente Matéria $(\Omega_m=1.0, \Omega_\Lambda=0.0)$",
             r"Somente Energia $(\Omega_m=0.0, \Omega_\Lambda=1.0)$",
             rf"Universo Simulado $(\Omega_m={Omega_M}, \Omega_\Lambda={Omega_EE})$",
         ),
-        NOMEvecx=r"$z$",
-        NOMEvecy=r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",
-        save=True,
-        nome="DLAPcomparacao"
+        x_label=r"$z$",
+        y_label=r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",
+        save_fig=True,
+        filename="DLAPcomparacao",
+        show_plot=False,
     )
 except:
-    sy.status(
-        f"Um erro foi encontrado ao tentar fazer a sobreposição dos gráficos de Distância de luminosidade Aproximada. Erro: {e}"
+    sy.ok(
+        f"Um erro foi encontrado ao tentar fazer a sobreposição dos gráficos de Distância de luminosidade Aproximada. Erro: {e}",
+        False,
     )
 sy.ok(
     (

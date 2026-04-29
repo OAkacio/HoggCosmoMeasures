@@ -8,12 +8,13 @@
 # ? -----------------------------------------------------------------------------
 
 import numpy as np
+
 #
 # ? -----------------------------------------------------------------------------
 # ?         MÓDULOS LOCAIS
 # ? -----------------------------------------------------------------------------
 
-from src.constants import *
+from src.constants import c, H0
 from toolkit import graphs as gp
 from toolkit import system as sy
 from toolkit import saveload as sl
@@ -51,38 +52,50 @@ try:
 
     sy.status("Iniciando criação do gráficos...")
     gp.basic(
-        DLvectorX,
-        DLvectorY / (c / H0),
-        "",
-        r"$z$",
-        r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",
-        save=True,
-        nome="DLdistribuicao",
+        x_data=DLvectorX,
+        y_data=DLvectorY / (c / H0),
+        title="",
+        x_label=r"$z$",
+        y_label=r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",
+        save_fig=True,
+        filename="DLdistribuicao",
+        show_plot=False,
     )
     gp.multi(
-        (
+        x_list=(
             DLvectorX,
             DLAPvectorX,
         ),
-        (DLvectorY / (c / H0), DLAPvectorY / (c / H0)),
-        titulo="",
-        NOMEvecx=r"$z$",
-        NOMEvecy=r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",
-        nomes_curvas=("Curva Exata", "Curva Aproximada"),
-        save=True,
-        nome="ExataAproximadadistribuicao",
+        y_list=(DLvectorY / (c / H0), DLAPvectorY / (c / H0)),
+        title="",
+        x_label=r"$z$",
+        y_label=r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",
+        curve_names=("Curva Exata", "Curva Aproximada"),
+        save_fig=True,
+        filename="ExataAproximadadistribuicao",
+        show_plot=False,
     )
     gp.multi(
-        (DIFvectorX, DIFvectorX),
-        (DIFvectorY, np.full(len(DIFvectorY), 0)),
-        titulo="",
-        NOMEvecx=r"$z$",
-        NOMEvecy=r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",
-        nomes_curvas=("Diferença Exato vs. Aproximado", "Zero"),
-        save=True,
-        nome="DIFdistribuicao",
+        x_list=(DIFvectorX, DIFvectorX),
+        y_list=(DIFvectorY, np.full(len(DIFvectorY), 0)),
+        title="",
+        x_label=r"$z$",
+        y_label=r"$d_L \; /\; \left(\frac{c}{H_0}\right)$",
+        curve_names=("Diferença Exato vs. Aproximado", "Zero"),
+        save_fig=True,
+        filename="DIFdistribuicao",
+        show_plot=False,
     )
-    gp.basic(MUvectorX, MUvectorY, "", r"$z$", r"$\mu$ (mag)", save=True, nome="MUdistribuicao")
+    gp.basic(
+        x_data=MUvectorX,
+        y_data=MUvectorY,
+        title="",
+        x_label=r"$z$",
+        y_label=r"$\mu$ (mag)",
+        save_fig=True,
+        filename="MUdistribuicao",
+        show_plot=False,
+    )
     sy.ok(
         (
             "Gráfico de Distância de Luminosidade",
@@ -93,4 +106,4 @@ try:
     )
     sy.fim()
 except Exception as e:
-    sy.status(f"Falha no processo de plotagem dos gráficos! Erro: {e}")
+    sy.ok(f"Falha no processo de plotagem dos gráficos! Erro: {e}", False)

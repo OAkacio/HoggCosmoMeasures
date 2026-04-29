@@ -19,7 +19,6 @@ from src.constants import *
 from toolkit import system as sy
 from toolkit import saveload as sl
 
-
 # * =============================================================================
 # * ROTINA PRINCIPAL
 # * =============================================================================
@@ -52,19 +51,24 @@ def main(Omega_M, Omega_EE, w, z, type="return"):
             ),
         )
     except Exception as e:
-        sy.status(f"Processo de integração numérica falhou! Erro: {e}...")
-    sy.status("Iniciando cálculo de parâmetros do universo")
-    sy.param(
-        ("Tipo de universo", UniType(Omega_K(Omega_M, Omega_EE)), "adm."),
-        ("Constante de curvatura espacial (k)", k(Omega_M, Omega_EE), "adm."),
-        (
-            "Parâmetro derivado de curvatura (Omega_K)",
-            Omega_K(Omega_M, Omega_EE),
-            "adm.",
-        ),
-        ("Distância comóvel radial (dC)", dC(resintlist[0]), "Mpc"),
-        ("Parâmetro de desaceleração (q0)", q0(Omega_M, Omega_EE, w), "adm."),
-    )
+        sy.ok(f"Processo de integração numérica falhou! Erro: {e}...", False)
+    try:
+        sy.status("Iniciando cálculo de parâmetros do universo")
+        sy.param(
+            ("Tipo de universo", UniType(Omega_K(Omega_M, Omega_EE)), "adm."),
+            ("Constante de curvatura espacial (k)", k(Omega_M, Omega_EE), "adm."),
+            (
+                "Parâmetro derivado de curvatura (Omega_K)",
+                Omega_K(Omega_M, Omega_EE),
+                "adm.",
+            ),
+            ("Distância comóvel radial (dC)", dC(resintlist[0]), "Mpc"),
+            ("Parâmetro de desaceleração (q0)", q0(Omega_M, Omega_EE, w), "adm."),
+        )
+    except Exception as e:
+        sy.ok(
+            f"Processo de cálculo de parâmetros do universo falhou! Erro: {e}...", False
+        )
 
     # ? -----------------------------------------------------------------------------
     # ?         CÁLCULO DE PARÂMETROS PARA TODO O INTERVALO
@@ -120,7 +124,7 @@ def main(Omega_M, Omega_EE, w, z, type="return"):
             ]
         sy.fim()
     except Exception as e:
-        sy.status(f"Falha no processo de salvamento! Erro: {e}...")
+        sy.ok(f"Falha no processo de salvamento! Erro: {e}...", False)
 
 
 # ? -----------------------------------------------------------------------------
