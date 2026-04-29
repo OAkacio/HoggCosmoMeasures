@@ -78,7 +78,7 @@ except Exception as e:
     sy.ok(f"Um erro foi encontrado ao tentar calcular as incertezas. Erro: {e}", False)
 try:
     sy.status("Iniciando criação de gráfico de distribuição qui-quadrado...")
-    gp.basicdot(  # todo: melhorar o gráfico colocando cores -------------------------------------------------------------------------
+    gp.basicstyle(  # todo: melhorar o gráfico colocando cores -------------------------------------------------------------------------
         var1d[1],
         var1d[0],
         (var1d[1][INDchi_min], chi_min),
