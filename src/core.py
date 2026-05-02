@@ -130,7 +130,7 @@ def solution(Omega_M, Omega_EE, z, z_step, w):
     DLAPvectorY = []
     DIFvectorX = []
     DIFvectorY = []
-    for i in tqdm(np.arange(float(z_step), float(z) + float(z_step), float(z_step))):
+    for i in tqdm(np.arange(float(z_step), float(z) + float(z_step), float(z_step)),desc="PROGRESSO"):
         iresint = integracao(integral, Omega_M, Omega_EE, i, w)
         DLvectorX.append(i)
         DLvectorY.append(dL(Omega_M, Omega_EE, iresint[0], i))
